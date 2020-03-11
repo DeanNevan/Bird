@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Scenes/ViewArea/ViewRay.gd" type="Script" id=1]
+
+[node name="ViewRay" type="RayCast2D"]
+collision_mask = 8
+script = ExtResource( 1 )
