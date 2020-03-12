@@ -1,33 +1,32 @@
 extends "res://Assets/Scripts/BasicSprite.gd"
 
-var tail_size = 76
-var points_array := []
-
 var basic_float_range = 200
 var float_range = 200
 
-var basic_change_time = 1.5
-var change_time = 1.5
+var basic_change_time = 2
+var change_time = 2
 
-var move_time = 0.3
+var tail_size = 76
+var points_array := []
 
-var TweenPosition = Tween.new()
 onready var FloatTimer = Timer.new()
+onready var TweenPosition = Tween.new()
+
 func _init():
-	add_to_group("purple_sprites")
-	color_type = Global.COLOR_TYPE.PURPLE
+	add_to_group("green_sprites")
+	color_type = Global.COLOR_TYPE.GREEN
 
 func _ready():
-	add_child(TweenPosition)
 	add_child(FloatTimer)
 	stop()
 	FloatTimer.one_shot = true
 	Global.connect_and_detect(FloatTimer.connect("timeout", self, "_on_FloatTimer_timeout"))
-	$AnimationPlayer.play("default")
+	add_child(TweenPosition)
+	#$AnimationPlayer.play("default")
+	pass
 
 func _process(delta):
-	
-	if is_in_energy:
+	if is_in_energy and visible:
 		if points_array.size() < tail_size:
 			points_array.append(self.global_position)
 		else:
@@ -53,6 +52,6 @@ func stop():
 func _on_FloatTimer_timeout():
 	FloatTimer.start(change_time)
 	var new_position = Player.global_position + Vector2(rand_range(-float_range, float_range), rand_range(-float_range, float_range))
-	TweenPosition.interpolate_property(self, "position", global_position, new_position, move_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	TweenPosition.interpolate_property(self, "position", global_position, new_position, change_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	TweenPosition.start()
 	pass

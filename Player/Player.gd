@@ -27,10 +27,13 @@ var visible_targets = []
 onready var TweenVelocity = Tween.new()
 onready var WakeFlame = preload("res://Assets/Scenes/WakeFlame/WakeFlame.tscn").instance()
 func _ready():
+	Sprites.Player = self
 	Global.add_child(WakeFlame)
 	Global.connect_and_detect(connect("draw_WakeFlame", WakeFlame, "_on_draw"))
 	Global.connect_and_detect(connect("not_draw_WakeFlame", WakeFlame, "_on_not_draw"))
 	Global.connect_and_detect($AnimatedSprite.connect("animation_finished", self, "_on_AnimatedSprite_finished",[], 1 ))
+	Global.connect_and_detect(connect("body_visible", $ViewAreaProcessCenter, "_on_ViewArea_body_visible"))
+	Global.connect_and_detect(connect("body_invisible", $ViewAreaProcessCenter, "_on_ViewArea_body_invisible"))
 	#Global.connect_and_detect($ViewArea.connect("body_invisible", self, "_on_ViewArea_body_invisible"))
 	#Global.connect_and_detect($ViewArea.connect("body_visible", self, "_on_ViewArea_body_visible"))
 	add_child(TweenVelocity)

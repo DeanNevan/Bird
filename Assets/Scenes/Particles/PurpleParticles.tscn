@@ -1,4 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Scenes/Particles/PurpleParticles.gd" type="Script" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=4]
+light_mode = 2
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -8,12 +13,15 @@ load_path = "res://.import/flare_01.png-26f95c9a1e878e1e938e9023bfe5ae38.stex"
 _data = [ Vector2( 0, 0.233173 ), 0.0, -3.62019, 0, 0, Vector2( 0.386905, 1 ), -1.00416, -1.00416, 0, 0, Vector2( 0.630952, 0.754808 ), -0.237556, -0.237556, 0, 0, Vector2( 0.821429, 0.126202 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0396634 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0, 0.993378 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.619608 )
+offsets = PoolRealArray( 0, 0.291391, 0.490066, 0.721854, 0.993378 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.803922, 1, 1, 1, 1, 1, 1, 1, 0.615686, 1, 1, 1, 0 )
 
 [node name="PurpleParticles" type="Node2D"]
+material = SubResource( 4 )
+script = ExtResource( 1 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+use_parent_material = true
 lifetime = 2.0
 local_coords = false
 texture = SubResource( 1 )
@@ -24,7 +32,7 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 20.0
 initial_velocity_random = 0.1
 angular_velocity = 45.0
-angular_velocity_random = 0.5
+angular_velocity_random = 1.0
 linear_accel = -80.0
 linear_accel_random = 0.3
 radial_accel = 5.0
@@ -32,5 +40,6 @@ damping = 61.29
 angle = 180.0
 angle_random = 1.0
 scale_amount = 1.4
+scale_amount_random = 0.5
 scale_amount_curve = SubResource( 2 )
 color_ramp = SubResource( 3 )

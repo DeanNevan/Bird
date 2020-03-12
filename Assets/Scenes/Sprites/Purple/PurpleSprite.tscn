@@ -1,10 +1,11 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/Art/Sprites/Purple/light.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Art/Particles/circle_light.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Art/Sprites/Purple/1.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Art/Particles/flare_01.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Scenes/ViewArea/CircleViewArea.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Scenes/Sprites/Purple/PurpleSprite.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Scenes/DetectedBody.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "default"
@@ -18,7 +19,7 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 0.366021, 1 ),
+"transitions": PoolRealArray( 0.170755, 1 ),
 "update": 0,
 "values": [ 0.0, 360.0 ]
 }
@@ -35,23 +36,21 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 21.8434
-
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 0.233173 ), 0.0, -3.62019, 0, 0, Vector2( 0.386905, 1 ), -1.00416, -1.00416, 0, 0, Vector2( 0.630952, 0.754808 ), -0.237556, -0.237556, 0, 0, Vector2( 0.821429, 0.126202 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0396634 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0, 0.768212, 1 )
 colors = PoolColorArray( 0.934204, 0.699219, 1, 1, 0.80545, 0.425781, 1, 1, 0.415077, 0.0756836, 0.605469, 1 )
 
-[node name="PurpleSprite" type="RigidBody2D"]
+[node name="PurpleSprite" type="Node2D"]
+z_index = 1
 script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.756863, 0.368627, 1, 1 )
-rotation = 0.351287
-scale = Vector2( 0.979877, 0.979877 )
+rotation = 6.28078
+scale = Vector2( 0.984104, 0.984104 )
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -60,18 +59,14 @@ anims/default = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
-texture_scale = 1.5
+texture_scale = 0.5
 color = Color( 0.776471, 0.415686, 1, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource( 2 )
+[node name="Particles" type="Node2D" parent="."]
 
-[node name="PurpleParticles" type="Node2D" parent="."]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="PurpleParticles"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Particles"]
 z_index = -1
-amount = 4
+amount = 11
 lifetime = 2.0
 local_coords = false
 texture = ExtResource( 3 )
@@ -82,7 +77,7 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 20.0
 initial_velocity_random = 0.1
 angular_velocity = 45.0
-angular_velocity_random = 0.5
+angular_velocity_random = 1.0
 linear_accel = -80.0
 linear_accel_random = 0.3
 radial_accel = 5.0
@@ -90,7 +85,10 @@ damping = 61.29
 angle = 180.0
 angle_random = 1.0
 scale_amount = 0.5
-scale_amount_curve = SubResource( 4 )
-color_ramp = SubResource( 5 )
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
 
 [node name="ViewArea" parent="." instance=ExtResource( 4 )]
+
+[node name="DetectedBody" parent="." instance=ExtResource( 6 )]
