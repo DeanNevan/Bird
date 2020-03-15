@@ -36,10 +36,10 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 0.233173 ), 0.0, -3.62019, 0, 0, Vector2( 0.386905, 1 ), -1.00416, -1.00416, 0, 0, Vector2( 0.630952, 0.754808 ), -0.237556, -0.237556, 0, 0, Vector2( 0.821429, 0.126202 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0396634 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.768212, 1 )
 colors = PoolColorArray( 0.934204, 0.699219, 1, 1, 0.80545, 0.425781, 1, 1, 0.415077, 0.0756836, 0.605469, 1 )
 
@@ -49,8 +49,6 @@ script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.756863, 0.368627, 1, 1 )
-rotation = 6.28078
-scale = Vector2( 0.984104, 0.984104 )
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -86,8 +84,8 @@ angle = 180.0
 angle_random = 1.0
 scale_amount = 0.5
 scale_amount_random = 0.5
-scale_amount_curve = SubResource( 3 )
-color_ramp = SubResource( 4 )
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
 
 [node name="ViewArea" parent="." instance=ExtResource( 4 )]
 

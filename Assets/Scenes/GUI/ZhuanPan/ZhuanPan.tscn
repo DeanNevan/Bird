@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/KOBUGE-games.CircularContainer/CircularContainer.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scenes/GUI/ZhuanPanSprite/Purple/PurpleSpriteButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scenes/GUI/ZhuanPanSprite/Green/GreenSpriteButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Art/GUI/ZhuanPan/1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Scenes/GUI/ZhuanPan/ZhuanPan.gd" type="Script" id=5]
+
+[node name="ZhuanPan" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -401.0
+margin_top = -401.0
+margin_right = 401.0
+margin_bottom = 401.0
+rect_clip_content = true
+value = 100.0
+texture_progress = ExtResource( 4 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CircularContainer" type="Container" parent="TextureProgress"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -385.0
+margin_top = -385.0
+margin_right = 385.0
+margin_bottom = 385.0
+rect_pivot_offset = Vector2( 385, 385 )
+mouse_filter = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+arrange/force_squares = false
+arrange/force_expand = true
+arrange/start_angle = 12.0
+arrange/start_empty = false
+arrange/allow_node2d = false
+animate/percent_visible = 1.0
+animate/all_at_once = false
+
+[node name="GreenSpriteButton2" parent="TextureProgress/CircularContainer" instance=ExtResource( 3 )]
+margin_left = 257.429
+margin_top = 7.10205
+margin_right = 377.429
+margin_bottom = 127.102
+
+[node name="PurpleSpriteButton" parent="TextureProgress/CircularContainer" instance=ExtResource( 2 )]
+margin_left = 392.571
+margin_top = 642.898
+margin_right = 512.571
+margin_bottom = 762.898

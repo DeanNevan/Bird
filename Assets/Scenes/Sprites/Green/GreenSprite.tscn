@@ -12,10 +12,10 @@
 [ext_resource path="res://Assets/Scenes/DetectedBody.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Scenes/Sprites/Green/GreenSprite.gd" type="Script" id=11]
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ) ],
 "loop": true,
@@ -28,9 +28,9 @@ script = ExtResource( 11 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 modulate = Color( 0, 1, 0.203922, 1 )
-material = SubResource( 2 )
-frames = SubResource( 1 )
-frame = 5
+material = SubResource( 1 )
+frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="."]
