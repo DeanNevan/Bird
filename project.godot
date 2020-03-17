@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="Bird"
 run/main_scene="res://Main/Main.tscn"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -138,4 +139,5 @@ wheel_down={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.117647, 0.117647, 0.117647, 1 )
 environment/default_environment="res://default_env.tres"

@@ -26,17 +26,13 @@ func _ready():
 	pass
 
 func _process(delta):
-	if is_in_energy and visible:
+	if is_working:
 		if points_array.size() < tail_size:
 			points_array.append(self.global_position)
 		else:
 			points_array.pop_front()
 			points_array.append(self.global_position)
 		WakeFlame.points_array = points_array
-	else:
-		if points_array.size() > 0:
-			WakeFlame.left_points_array.append(points_array.duplicate())
-			points_array.clear()
 
 func start():
 	emit_signal("draw_WakeFlame")

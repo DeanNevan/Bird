@@ -1,7 +1,30 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/GUI/ZhuanPan/ZhuanPan.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main/MainCamera.gd" type="Script" id=3]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Scenes/TestObjects/TestObject.tscn" type="PackedScene" id=5]
+[ext_resource path="res://white_square.png" type="Texture" id=6]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+background_energy = 1.5
+background_canvas_max_layer = 1
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_amount = 1.0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 3.13
+dof_blur_near_transition = 11.0
+dof_blur_near_quality = 2
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.9
+glow_bicubic_upscale = true
+adjustment_enabled = true
+
+[sub_resource type="CanvasItemMaterial" id=2]
+light_mode = 2
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,3 +33,35 @@ script = ExtResource( 1 )
 layer = 0
 
 [node name="ZhuanPan" parent="GUI" instance=ExtResource( 2 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+
+[node name="MainCamera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 2.4, 2.4 )
+smoothing_enabled = true
+smoothing_speed = 3.0
+script = ExtResource( 3 )
+
+[node name="TestObject" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1691.66, 784.411 )
+
+[node name="TestObject2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1996.47, 417.958 )
+
+[node name="TestObject3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1993.04, 572.074 )
+
+[node name="TestObject4" parent="." instance=ExtResource( 5 )]
+position = Vector2( -945.428, -455.363 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.533333, 0.533333, 0.533333, 1 )
+material = SubResource( 2 )
+position = Vector2( -976.656, 1106.48 )
+rotation = 1.01578
+scale = Vector2( 5.19423, 1 )
+texture = ExtResource( 6 )

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Art/view_area_light.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Scenes/ViewArea/ViewAreaLight.gd" type="Script" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id=2]
+light_mode = 2
+
+[node name="ViewAreaLight" type="Node2D"]
+z_index = 1
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 800, 0 )
+
+[node name="Light2D" type="Light2D" parent="."]
+light_mask = 31
+material = SubResource( 2 )
+texture = ExtResource( 1 )
+offset = Vector2( 800, 0 )
+mode = 2
+range_item_cull_mask = 31

@@ -3,6 +3,7 @@ extends Area2D
 signal body_visible(body)
 signal body_invisible(body)
 
+var belong_to_player = false
 var user
 
 var is_perspective = false#是否透视
@@ -45,7 +46,8 @@ func _on_ViewArea_body_entered(body):
 				newViewRay.target = body
 				newViewRay.connect("target_visible", self, "_on_ViewRay_target_visible")
 				newViewRay.connect("target_invisible", self, "_on_ViewRay_target_invisible")
-				add_child(newViewRay)
+				newViewRay.user = user
+				Global.add_child(newViewRay)
 				view_rays[body] = newViewRay
 		
 	pass # Replace with function body.
@@ -55,7 +57,10 @@ func _on_ViewArea_body_exited(body):
 	if visible_targets.has(body):
 		visible_targets.erase(body)
 	if is_instance_valid(body) and view_rays.has(body):
-		view_rays[body].queue_free()
+		if is_instance_valid(view_rays[body]):
+			if view_rays[body].has_method("queue_free"):
+				view_rays[body].queue_free()
+	emit_signal("body_invisible", body)
 	view_rays.erase(body)
 	pass # Replace with function body.
 

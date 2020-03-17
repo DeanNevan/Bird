@@ -35,7 +35,7 @@ func appear():
 	visible = true
 	is_disappearing = false
 	Tween1.stop_all()
-	var change_time = 0.6 * (100 - $TextureProgress.value) / 100
+	var change_time = 0.4 * (100 - $TextureProgress.value) / 100
 	Tween1.interpolate_property($TextureProgress, "value", $TextureProgress.value, 100, change_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	Tween1.interpolate_method($TextureProgress/CircularContainer, "set_percent_visible", $TextureProgress/CircularContainer.get_percent_visible(), 1, change_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	Tween1.start()
@@ -44,8 +44,8 @@ func appear():
 func disappear():
 	is_disappearing = true
 	Tween1.stop_all()
-	Tween1.interpolate_property($TextureProgress, "value", $TextureProgress.value, 0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	Tween1.interpolate_method($TextureProgress/CircularContainer, "set_percent_visible", $TextureProgress/CircularContainer.get_percent_visible(), 0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	Tween1.interpolate_property($TextureProgress, "value", $TextureProgress.value, 0, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	Tween1.interpolate_method($TextureProgress/CircularContainer, "set_percent_visible", $TextureProgress/CircularContainer.get_percent_visible(), 0, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	Tween1.start()
 	yield(Tween1, "tween_all_completed")
 	if is_disappearing:

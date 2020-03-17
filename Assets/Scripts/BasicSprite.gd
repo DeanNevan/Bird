@@ -32,6 +32,9 @@ func _ready():
 	$ViewArea.update_CollisionShape(view_radius)
 	Global.connect_and_detect($ViewArea.connect("body_invisible", self, "_on_ViewArea_body_invisible"))
 	Global.connect_and_detect($ViewArea.connect("body_visible", self, "_on_ViewArea_body_visible"))
+	disappear()
+	$ViewArea.user = self
+	$ViewArea.is_perspective = false
 	pass # Replace with function body.
 
 
@@ -50,10 +53,10 @@ func appear():
 	global_position = Player.global_position
 	TweenAppear.interpolate_property(self, "modulate", modulate, Color(1, 1, 1, 1), 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	TweenAppear.interpolate_property(self, "global_position", global_position, global_position + Vector2(rand_range(-50, 50), rand_range(-50, 50)), 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	TweenAppear.interpolate_property($Light2D, "energy", $Light2D.energy, 1, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	TweenAppear.interpolate_property($Light2D, "energy", $Light2D.energy, 1.3, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	TweenAppear.start()
 	yield(TweenAppear, "tween_completed")
-	
+	start()
 	is_working = true
 	$DetectedBody/CollisionShape2D.disabled = false
 	$ViewArea.monitoring = true
@@ -69,6 +72,7 @@ func disappear():
 	TweenAppear.interpolate_property($Light2D, "energy", $Light2D.energy, 0, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	TweenAppear.start()
 	yield(TweenAppear, "tween_completed")
+	stop()
 	visible = false
 	is_working = false
 	$DetectedBody/CollisionShape2D.disabled = true
@@ -78,6 +82,7 @@ func disappear():
 	pass
 
 func _on_ViewArea_body_visible(body):
+	print("22222")
 	#visible_targets.append(body)
 	emit_signal("body_visible", body)
 	pass

@@ -1,12 +1,14 @@
 extends Node
 
+signal changed_sprite(new_sprite)
+
 var GREEN_SPRITE = preload("res://Assets/Scenes/Sprites/Green/GreenSprite.tscn")
 var PURPLE_SPRITE = preload("res://Assets/Scenes/Sprites/Purple/PurpleSprite.tscn")
 
 
 var player_sprites = {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0}
 
-var now_type = Global.COLOR_TYPE.PURPLE
+var now_type
 
 var Player
 
@@ -40,10 +42,13 @@ func _on_changed_sprite_type(new_type):
 	if now_type == new_type:
 		return
 	for i in get_child_count():
-		if i.has_method("appear"):
-			if i.type == new_type:
-				i.appear()
-			elif i.type == now_type:
-				i.disappear()
+		var object = get_child(i)
+		if object.has_method("appear"):
+			if object.color_type == new_type:
+				object.appear()
+			elif object.color_type == now_type:
+				object.disappear()
 	now_type = new_type
+	#Player.modulate = Global.COLORS[now_type]
+	emit_signal("changed_sprite", now_type)
 	pass
