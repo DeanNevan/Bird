@@ -1,11 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://Assets/Scenes/WakeFlame/WakeFlame.gd" type="Script" id=1]
 
-[sub_resource type="CanvasItemMaterial" id=1]
-light_mode = 2
-
 [node name="WakeFlame" type="Node2D"]
-material = SubResource( 1 )
 z_as_relative = false
 script = ExtResource( 1 )

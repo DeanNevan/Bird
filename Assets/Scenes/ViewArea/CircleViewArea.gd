@@ -26,6 +26,12 @@ func update_CollisionShape(radius):
 	$CollisionShape2D.shape.radius = radius
 	pass
 
+func update_signal_connection():
+	if user != null and is_instance_valid(user):
+		Global.connect_and_detect(connect("body_invisible", user, "_on_ViewArea_body_invisible"))
+		Global.connect_and_detect(connect("body_visible", user, "_on_ViewArea_body_visible"))
+	pass
+
 func _on_ViewArea_body_entered(body):
 	if body != user and body.type != Global.TYPE.WALL:
 		if is_perspective:
@@ -33,6 +39,7 @@ func _on_ViewArea_body_entered(body):
 				targets.append(body)
 			if !visible_targets.has(body):
 				visible_targets.append(body)
+				emit_signal("body_visible", body)
 		else:
 			if !targets.has(body):
 				targets.append(body)

@@ -20,6 +20,10 @@ func _unhandled_input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("key_tab"):
+		appear()
+	if Input.is_action_just_released("key_tab"):
+		disappear()
 	if visible:
 		if Input.is_action_just_released("wheel_up"):
 			if !Tween1.is_active():
@@ -47,7 +51,7 @@ func disappear():
 	Tween1.interpolate_property($TextureProgress, "value", $TextureProgress.value, 0, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	Tween1.interpolate_method($TextureProgress/CircularContainer, "set_percent_visible", $TextureProgress/CircularContainer.get_percent_visible(), 0, 0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	Tween1.start()
-	yield(Tween1, "tween_all_completed")
+	yield(Tween1, "tween_completed")
 	if is_disappearing:
 		visible = false
 	pass

@@ -57,10 +57,12 @@ func _pressed():
 	for i in get_tree().get_nodes_in_group("ZhuanPanSpriteButtons"):
 		if i != self:
 			i.cancel_select()
+		else:
+			select()
 	pass
 
 func _on_button_down():
-	select()
+	
 	pass
 
 func _on_button_up():

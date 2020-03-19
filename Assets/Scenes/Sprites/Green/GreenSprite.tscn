@@ -38,7 +38,7 @@ script = ExtResource( 11 )
 modulate = Color( 0, 1, 0.203922, 1 )
 material = SubResource( 1 )
 frames = SubResource( 2 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="."]

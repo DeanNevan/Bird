@@ -48,28 +48,30 @@ func _ready():
 	Global.connect_and_detect(connect("body_invisible", $ViewAreaProcessCenter, "_on_ViewArea_body_invisible"))
 	
 	Global.connect_and_detect(Sprites.connect("changed_sprite", self, "_on_changed_sprite"))
-	Global.connect_and_detect($ViewArea.connect("body_invisible", self, "_on_ViewArea_body_invisible"))
-	Global.connect_and_detect($ViewArea.connect("body_visible", self, "_on_ViewArea_body_visible"))
+	$ViewArea.update_CollisionShape(Global.PLAYER_BASIC_VIEW_RADIUS, Global.PLAYER_BASIC_VIEW_LENGTH, Global.PLAYER_BASIC_VIEW_WIDTH)
+	$ViewArea.user = self
+	$ViewArea.is_perspective = false
+	$ViewArea.update_signal_connection()
+	#Global.connect_and_detect($ViewArea.connect("body_invisible", self, "_on_ViewArea_body_invisible"))
+	#Global.connect_and_detect($ViewArea.connect("body_visible", self, "_on_ViewArea_body_visible"))
 	add_child(TweenVelocity)
 	speed = Global.PLAYER_BASIC_SPEED
 	max_speed = Global.PLAYER_BASIC_MAX_SPEED
 	rotate_speed = Global.PLAYER_BASIC_ROTATE_SPEED
 	#max_rotate_speed = Global.PLAYER_BASIC_MAX_ROTATE_SPEED
-	$ViewArea.update_CollisionShape(Global.PLAYER_BASIC_VIEW_RADIUS, Global.PLAYER_BASIC_VIEW_LENGTH, Global.PLAYER_BASIC_VIEW_WIDTH)
-	$ViewArea.user = self
-	$ViewArea.is_perspective = false
+	
 	
 	pass # Replace with function body.
 
-func _unhandled_input(event):
-	if event.is_action_pressed("right_mouse_button"):
-		print("right_button_pressed")
+func _input(event):
+	if event.is_action_pressed("key_w") or event.is_action_pressed("key_a") or event.is_action_pressed("key_s") or event.is_action_pressed("key_d"):
+		#print("right_button_pressed")
 		emit_signal("controlled")
 		is_controlling = true
-	if event.is_action_released("right_mouse_button"):
-		print("right_button_released")
-		emit_signal("cancelled_control")
-		is_controlling = false
+	#if event.is_action_released("right_mouse_button"):
+		#print("right_button_released")
+		#emit_signal("cancelled_control")
+		#is_controlling = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -91,9 +93,28 @@ func _process(delta):
 	$ViewArea.global_rotation = $AnimatedSprite.global_rotation
 	#ViewAreaLight.global_rotation = $ViewArea.global_rotation
 	#ViewAreaLight.global_position = $ViewArea.global_position
-	var target_direction = (get_global_mouse_position() - global_position).normalized()
-	rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
+	#var target_direction = (get_global_mouse_position() - global_position).normalized()
+	var target_direction = Vector2()
+	if Input.is_action_pressed("key_w"):
+		target_direction.y -= 1
+	if Input.is_action_pressed("key_a"):
+		target_direction.x -= 1
+	if Input.is_action_pressed("key_s"):
+		target_direction.y += 1
+	if Input.is_action_pressed("key_d"):
+		target_direction.x += 1
 	if is_controlling:
+		if target_direction.length() == 0:
+			emit_signal("cancelled_control")
+			is_controlling = false
+	else:
+		if target_direction.length() > 0:
+			emit_signal("controlled")
+			is_controlling = true
+	#rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
+	#$AnimatedSprite.global_rotation
+	if is_controlling:
+		
 		if !is_WakeFlame_drawing:
 			is_WakeFlame_drawing = true
 			emit_signal("draw_WakeFlame")
@@ -105,6 +126,7 @@ func _process(delta):
 		WakeFlame.points_array = points_array
 		var change_speed = 40.0 / speed
 		$AnimatedSprite.speed_scale = 3 * sqrt(linear_velocity.length() / max_speed)
+		rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
 		TweenVelocity.interpolate_property(self, "linear_velocity", linear_velocity, target_direction * max_speed, change_speed, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		TweenVelocity.start()
 	else:

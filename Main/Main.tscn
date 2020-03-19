@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/GUI/ZhuanPan/ZhuanPan.tscn" type="PackedScene" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Scenes/TestObjects/TestObject.tscn" type="PackedScene" id=5]
 [ext_resource path="res://white_square.png" type="Texture" id=6]
+[ext_resource path="res://Main/SpriteAbilityValues.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/GreenValueBar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/PurpleValueBar.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -13,13 +16,13 @@ background_energy = 1.5
 background_canvas_max_layer = 1
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_amount = 1.0
+tonemap_exposure = 0.4
 dof_blur_near_enabled = true
-dof_blur_near_distance = 3.13
-dof_blur_near_transition = 11.0
+dof_blur_near_distance = 6.5
+dof_blur_near_transition = 21.0
 dof_blur_near_quality = 2
 glow_enabled = true
-glow_intensity = 1.0
-glow_strength = 0.9
+glow_intensity = 2.0
 glow_bicubic_upscale = true
 adjustment_enabled = true
 
@@ -34,10 +37,43 @@ layer = 0
 
 [node name="ZhuanPan" parent="GUI" instance=ExtResource( 2 )]
 
+[node name="SpriteAbilityValues" type="MarginContainer" parent="GUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -192.0
+margin_right = 116.0
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/SpriteAbilityValues"]
+margin_left = 20.0
+margin_right = 116.0
+margin_bottom = 172.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GreenValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 8 )]
+margin_top = 0.0
+margin_right = 38.0
+margin_bottom = 172.0
+
+[node name="PurpleValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 9 )]
+margin_left = 58.0
+margin_top = 0.0
+margin_right = 96.0
+margin_bottom = 172.0
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 288, 96 )
 
 [node name="MainCamera" type="Camera2D" parent="."]
 current = true

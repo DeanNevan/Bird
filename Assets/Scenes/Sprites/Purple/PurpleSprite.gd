@@ -9,7 +9,7 @@ var float_range = 200
 var basic_change_time = 1.5
 var change_time = 1.5
 
-var move_time = 0.3
+var move_time = 0.1
 
 var TweenPosition = Tween.new()
 onready var FloatTimer = Timer.new()

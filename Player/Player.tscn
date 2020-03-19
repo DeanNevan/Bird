@@ -41,6 +41,7 @@ animations = [ {
 radius = 44.0
 
 [node name="Player" type="RigidBody2D"]
+z_index = 1
 script = ExtResource( 22 )
 
 [node name="ViewAreaProcessCenter" type="Node" parent="."]
@@ -51,7 +52,7 @@ material = SubResource( 1 )
 scale = Vector2( 0.5, 0.45 )
 frames = SubResource( 2 )
 animation = "bird"
-frame = 11
+frame = 9
 playing = true
 offset = Vector2( -50, 30 )
 flip_h = true

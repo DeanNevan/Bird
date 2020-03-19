@@ -32,6 +32,12 @@ func update_CollisionShape(radius, length, width):
 	$CollisionShape2D2.shape.points[1] = Vector2(sqrt(length * length + width * width), 0)
 	pass
 
+func update_signal_connection():
+	if user != null and is_instance_valid(user):
+		Global.connect_and_detect(connect("body_invisible", user, "_on_ViewArea_body_invisible"))
+		Global.connect_and_detect(connect("body_visible", user, "_on_ViewArea_body_visible"))
+	pass
+
 func _on_ViewArea_body_entered(body):
 	if body != user and body.type != Global.TYPE.WALL:
 		if is_perspective:

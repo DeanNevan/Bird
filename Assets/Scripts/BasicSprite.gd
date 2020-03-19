@@ -12,7 +12,6 @@ var color_type = Global.COLOR_TYPE.PURPLE
 var view_radius = Global.SPRITE_BASIC_VIEW_RADIUS
 
 var is_working = false
-var is_in_energy = true
 
 
 #var visible_targets := []
@@ -30,11 +29,12 @@ func _ready():
 	Global.connect_and_detect(connect("draw_WakeFlame", WakeFlame, "_on_draw"))
 	Global.connect_and_detect(connect("not_draw_WakeFlame", WakeFlame, "_on_not_draw"))
 	$ViewArea.update_CollisionShape(view_radius)
-	Global.connect_and_detect($ViewArea.connect("body_invisible", self, "_on_ViewArea_body_invisible"))
-	Global.connect_and_detect($ViewArea.connect("body_visible", self, "_on_ViewArea_body_visible"))
-	disappear()
 	$ViewArea.user = self
 	$ViewArea.is_perspective = false
+	$ViewArea.update_signal_connection()
+	#Global.connect_and_detect($ViewArea.connect("body_invisible", self, "_on_ViewArea_body_invisible"))
+	#Global.connect_and_detect($ViewArea.connect("body_visible", self, "_on_ViewArea_body_visible"))
+	disappear()
 	pass # Replace with function body.
 
 
@@ -82,7 +82,7 @@ func disappear():
 	pass
 
 func _on_ViewArea_body_visible(body):
-	print("22222")
+	#print("22222")
 	#visible_targets.append(body)
 	emit_signal("body_visible", body)
 	pass

@@ -23,5 +23,4 @@ light_mask = 31
 material = SubResource( 2 )
 texture = ExtResource( 1 )
 offset = Vector2( 800, 0 )
-mode = 2
 range_item_cull_mask = 31
