@@ -19,6 +19,10 @@ func _ready():
 	Sprites.add_new_sprite(Global.COLOR_TYPE.GREEN)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.GREEN)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.GREEN)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.ORANGE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.ORANGE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.ORANGE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.ORANGE)
 	pass # Replace with function body.
 
 

@@ -27,8 +27,15 @@ var max_speed
 var rotate_speed
 
 var is_controlling = false
+var is_controlled_by_ability = false
 
 var visible_targets = []
+
+var control_direction = Vector2()
+
+var max_particles_count = 50
+var max_particles_velocity = 450
+var max_particles_angle = 0.5
 
 onready var TweenVelocity = Tween.new()
 onready var WakeFlame = preload("res://Assets/Scenes/WakeFlame/WakeFlame.tscn").instance()
@@ -64,10 +71,11 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event.is_action_pressed("key_w") or event.is_action_pressed("key_a") or event.is_action_pressed("key_s") or event.is_action_pressed("key_d"):
-		#print("right_button_pressed")
-		emit_signal("controlled")
-		is_controlling = true
+	if !is_controlled_by_ability:
+		if event.is_action_pressed("key_w") or event.is_action_pressed("key_a") or event.is_action_pressed("key_s") or event.is_action_pressed("key_d"):
+			#print("right_button_pressed")
+			emit_signal("controlled")
+			is_controlling = true
 	#if event.is_action_released("right_mouse_button"):
 		#print("right_button_released")
 		#emit_signal("cancelled_control")
@@ -94,27 +102,35 @@ func _process(delta):
 	#ViewAreaLight.global_rotation = $ViewArea.global_rotation
 	#ViewAreaLight.global_position = $ViewArea.global_position
 	#var target_direction = (get_global_mouse_position() - global_position).normalized()
-	var target_direction = Vector2()
+	control_direction = Vector2()
 	if Input.is_action_pressed("key_w"):
-		target_direction.y -= 1
+		control_direction.x += 1
 	if Input.is_action_pressed("key_a"):
-		target_direction.x -= 1
+		control_direction.y -= 1
 	if Input.is_action_pressed("key_s"):
-		target_direction.y += 1
+		control_direction.x -= 1
 	if Input.is_action_pressed("key_d"):
-		target_direction.x += 1
-	if is_controlling:
-		if target_direction.length() == 0:
-			emit_signal("cancelled_control")
-			is_controlling = false
+		control_direction.y += 1
+	if !is_controlled_by_ability:
+		if is_controlling:
+			if control_direction.length() == 0:
+				emit_signal("cancelled_control")
+				is_controlling = false
+		else:
+			if control_direction.length() > 0:
+				emit_signal("controlled")
+				is_controlling = true
 	else:
-		if target_direction.length() > 0:
-			emit_signal("controlled")
-			is_controlling = true
-	#rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
+		TweenVelocity.stop_all()
+		is_controlling = false
+	rotate_object($AnimatedSprite, rotate_speed * 0.15, (get_global_mouse_position() - global_position).normalized(), delta)
 	#$AnimatedSprite.global_rotation
 	if is_controlling:
-		
+		$Particles2D.emitting = true
+		#$Particles2D.amount = ceil(max_particles_count * _b)
+		$Particles2D.process_material.initial_velocity = (linear_velocity.length() / max_speed) * max_particles_velocity
+		var particle_direction = linear_velocity.normalized()
+		$Particles2D.process_material.direction = Vector3(particle_direction.x, particle_direction.y, 0)
 		if !is_WakeFlame_drawing:
 			is_WakeFlame_drawing = true
 			emit_signal("draw_WakeFlame")
@@ -126,10 +142,13 @@ func _process(delta):
 		WakeFlame.points_array = points_array
 		var change_speed = 40.0 / speed
 		$AnimatedSprite.speed_scale = 3 * sqrt(linear_velocity.length() / max_speed)
-		rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
-		TweenVelocity.interpolate_property(self, "linear_velocity", linear_velocity, target_direction * max_speed, change_speed, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		#rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
+		var velocity_angle = $AnimatedSprite.global_rotation + control_direction.angle()
+		var velocity_direction = Vector2(cos(velocity_angle), sin(velocity_angle))
+		TweenVelocity.interpolate_property(self, "linear_velocity", linear_velocity, velocity_direction * max_speed, change_speed, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		TweenVelocity.start()
 	else:
+		$Particles2D.emitting = false
 		if is_WakeFlame_drawing:
 			is_WakeFlame_drawing = false
 			emit_signal("not_draw_WakeFlame")

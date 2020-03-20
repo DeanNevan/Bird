@@ -11,6 +11,7 @@ enum TYPE{
 enum COLOR_TYPE{
 	PURPLE
 	GREEN
+	ORANGE
 }
 
 var Player
@@ -26,7 +27,8 @@ var PLAYER_BASIC_VIEW_WIDTH = 900
 var SPRITE_BASIC_VIEW_RADIUS = 230
 
 var COLORS={COLOR_TYPE.PURPLE : Color.purple,
-			COLOR_TYPE.GREEN : Color.green
+			COLOR_TYPE.GREEN : Color.green,
+			COLOR_TYPE.ORANGE : Color.orange
 			}
 
 func connect_and_detect(return_value):

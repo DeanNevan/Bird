@@ -36,6 +36,7 @@ func _on_animation_finished(name):
 	if Tween1.is_active():
 		yield(Tween1, "tween_completed")
 	emit_signal("finished")
+	Sprites.Player.global_position = global_position
 	Tween1.interpolate_property($Light2D, "energy", 5, 0, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	Tween1.interpolate_property(self, "modulate", modulate, Color(modulate.r, modulate.g, modulate.b, 0), 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	Tween1.start()

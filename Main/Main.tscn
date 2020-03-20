@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/GUI/ZhuanPan/ZhuanPan.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Main/SpriteAbilityValues.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/GreenValueBar.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/PurpleValueBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/OrangeValueBar.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -51,7 +52,7 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/SpriteAbilityValues"]
 margin_left = 20.0
-margin_right = 116.0
+margin_right = 174.0
 margin_bottom = 172.0
 custom_constants/separation = 20
 __meta__ = {
@@ -62,18 +63,27 @@ __meta__ = {
 margin_top = 0.0
 margin_right = 38.0
 margin_bottom = 172.0
+rect_pivot_offset = Vector2( 19, 172 )
 
 [node name="PurpleValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 9 )]
 margin_left = 58.0
 margin_top = 0.0
 margin_right = 96.0
 margin_bottom = 172.0
+rect_pivot_offset = Vector2( 19, 172 )
+
+[node name="OrangeValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 10 )]
+margin_left = 116.0
+margin_top = 0.0
+margin_right = 154.0
+margin_bottom = 172.0
+rect_pivot_offset = Vector2( 19, 172 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 96 )
+position = Vector2( 288, 32 )
 
 [node name="MainCamera" type="Camera2D" parent="."]
 current = true

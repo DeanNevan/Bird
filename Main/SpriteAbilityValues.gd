@@ -15,9 +15,21 @@ func _ready():
 func _on_changed_sprite(new_type):
 	match new_type:
 		Global.COLOR_TYPE.PURPLE:
+			$HBoxContainer.get_child(0).rect_scale = Vector2(1, 1)
 			$HBoxContainer.move_child($HBoxContainer/PurpleValueBar, 0)
+			yield(get_tree(), "idle_frame")
+			$HBoxContainer/PurpleValueBar.rect_scale = Vector2(1.5, 1.5)
 			pass
 		Global.COLOR_TYPE.GREEN:
+			$HBoxContainer.get_child(0).rect_scale = Vector2(1, 1)
 			$HBoxContainer.move_child($HBoxContainer/GreenValueBar, 0)
+			yield(get_tree(), "idle_frame")
+			$HBoxContainer/GreenValueBar.rect_scale = Vector2(1.5, 1.5)
+			pass
+		Global.COLOR_TYPE.ORANGE:
+			$HBoxContainer.get_child(0).rect_scale = Vector2(1, 1)
+			$HBoxContainer.move_child($HBoxContainer/OrangeValueBar, 0)
+			yield(get_tree(), "idle_frame")
+			$HBoxContainer/OrangeValueBar.rect_scale = Vector2(1.5, 1.5)
 			pass
 	pass

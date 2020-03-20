@@ -6,13 +6,11 @@ var float_range = 200
 var basic_change_time = 2
 var change_time = 2
 
-var tail_size = 76
-var points_array := []
-
 onready var FloatTimer = Timer.new()
 onready var TweenPosition = Tween.new()
 
 func _init():
+	view_radius *= 1.2
 	add_to_group("green_sprites")
 	color_type = Global.COLOR_TYPE.GREEN
 
@@ -26,13 +24,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	if is_working:
-		if points_array.size() < tail_size:
-			points_array.append(self.global_position)
-		else:
-			points_array.pop_front()
-			points_array.append(self.global_position)
-		WakeFlame.points_array = points_array
+	pass
 
 func start():
 	emit_signal("draw_WakeFlame")

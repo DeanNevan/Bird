@@ -13,10 +13,14 @@ var view_radius = Global.SPRITE_BASIC_VIEW_RADIUS
 
 var is_working = false
 
+var tail_size = 76
+var points_array := []
+
+var light_energy = 1.35
 
 #var visible_targets := []
 
-var Player
+var Player:RigidBody2D
 onready var WakeFlame = preload("res://Assets/Scenes/WakeFlame/WakeFlame.tscn").instance()
 onready var TweenAppear = Tween.new()
 func _init():
@@ -40,6 +44,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if is_working:
+		if points_array.size() < tail_size:
+			points_array.append(self.global_position)
+		else:
+			points_array.pop_front()
+			points_array.append(self.global_position)
+		WakeFlame.points_array = points_array
 	$DetectedBody.position = Vector2()
 
 func start():
@@ -53,7 +64,7 @@ func appear():
 	global_position = Player.global_position
 	TweenAppear.interpolate_property(self, "modulate", modulate, Color(1, 1, 1, 1), 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	TweenAppear.interpolate_property(self, "global_position", global_position, global_position + Vector2(rand_range(-50, 50), rand_range(-50, 50)), 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	TweenAppear.interpolate_property($Light2D, "energy", $Light2D.energy, 1.3, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	TweenAppear.interpolate_property($Light2D, "energy", $Light2D.energy, light_energy, 0.4, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	TweenAppear.start()
 	yield(TweenAppear, "tween_completed")
 	start()

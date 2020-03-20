@@ -1,8 +1,5 @@
 extends "res://Assets/Scripts/BasicSprite.gd"
 
-var tail_size = 76
-var points_array := []
-
 var basic_float_range = 200
 var float_range = 200
 
@@ -14,6 +11,7 @@ var move_time = 0.1
 var TweenPosition = Tween.new()
 onready var FloatTimer = Timer.new()
 func _init():
+	view_radius *= 1.2
 	add_to_group("purple_sprites")
 	color_type = Global.COLOR_TYPE.PURPLE
 
@@ -26,13 +24,7 @@ func _ready():
 	$AnimationPlayer.play("default")
 
 func _process(delta):
-	if is_working:
-		if points_array.size() < tail_size:
-			points_array.append(self.global_position)
-		else:
-			points_array.pop_front()
-			points_array.append(self.global_position)
-		WakeFlame.points_array = points_array
+	pass
 
 func start():
 	emit_signal("draw_WakeFlame")

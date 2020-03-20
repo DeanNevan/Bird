@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Scenes/Sprites/Orange/AbilitySEOrange.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Art/Particles/circle_04.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Art/Particles/twirl_03.png" type="Texture" id=3]
+
+[node name="AbilitySEOrange" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+offset = Vector2( -65, 35 )

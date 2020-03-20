@@ -24,28 +24,28 @@ color = Color( 1, 1, 1, 0.65098 )
 resource_name = "work"
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:scale")
+tracks/0/path = NodePath("Sprite:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.65, 0.85 ),
-"transitions": PoolRealArray( 1, 0.659754, 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 2.5, 2.5 ), Vector2( 2.2, 2.2 ) ]
+"values": [ 0.0, 720.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/path = NodePath("Sprite:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 0.392292, 1 ),
+"times": PoolRealArray( 0, 0.85 ),
+"transitions": PoolRealArray( 1, 2.2974 ),
 "update": 0,
-"values": [ 0.0, 720.0 ]
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 2.5, 2.5 ) ]
 }
 
 [node name="AbilitySEPurple" type="Node2D"]
@@ -57,7 +57,8 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.921569, 0.54902, 1, 1 )
-scale = Vector2( 0.5, 0.5 )
+rotation = 12.5664
+scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="Sprite"]

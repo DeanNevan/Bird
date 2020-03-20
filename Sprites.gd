@@ -8,13 +8,13 @@ signal changed_sprite(new_sprite)
 
 var GREEN_SPRITE = preload("res://Assets/Scenes/Sprites/Green/GreenSprite.tscn")
 var PURPLE_SPRITE = preload("res://Assets/Scenes/Sprites/Purple/PurpleSprite.tscn")
+var ORANGE_SPRITE = preload("res://Assets/Scenes/Sprites/Orange/OrangleSprite.tscn")
 
 
-
-var player_sprites = {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0}
+var player_sprites = {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0, Global.COLOR_TYPE.ORANGE : 0}
 
 #主动能力的能力值
-var sprites_ability_values := {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0}
+var sprites_ability_values := {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0, Global.COLOR_TYPE.ORANGE : 0}
 
 var is_launching_ability = false
 
@@ -25,11 +25,14 @@ var MainScene
 
 var PURPLE_SE = preload("res://Assets/Scenes/Sprites/Purple/AbilitySEPurple.tscn")
 var GREEN_SE = preload("res://Assets/Scenes/Sprites/Green/AbilitySEGreen.tscn")
+var ORANGE_SE = preload("res://Assets/Scenes/Sprites/Orange/AbilitySEOrange.tscn")
 onready var Draw = Node2D.new()
 onready var PurpleAbilityValueTimer = Timer.new()
 var purple_ability_value_time = 1
 onready var GreenAbilityValueTimer = Timer.new()
 var green_ability_value_time = 0.5
+onready var OrangeAbilityValueTimer = Timer.new()
+var orange_ability_value_time = 0.8
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(Draw)
@@ -57,6 +60,8 @@ func add_new_sprite(target_type = 0):
 			new_target = GREEN_SPRITE.instance()
 		Global.COLOR_TYPE.PURPLE:
 			new_target = PURPLE_SPRITE.instance()
+		Global.COLOR_TYPE.ORANGE:
+			new_target = ORANGE_SPRITE.instance()
 	new_target.Player = Player
 	new_target.modulate = Color(1, 1, 1, 0)
 	new_target.is_working = false
@@ -99,8 +104,6 @@ func launch_ability():
 			new_se.global_position = Draw.get_global_mouse_position()
 			MainScene.add_child(new_se)
 			new_se.start()
-			yield(new_se, "finished")
-			Player.global_position = new_se.global_position
 			pass
 		Global.COLOR_TYPE.GREEN:
 			if sprites_ability_values[now_type] < 1:
@@ -111,6 +114,14 @@ func launch_ability():
 			MainScene.add_child(new_se)
 			new_se.start()
 			pass
+		Global.COLOR_TYPE.ORANGE:
+			if sprites_ability_values[now_type] < 1:
+				return
+			change_ability_value(now_type, -1)
+			var new_se = ORANGE_SE.instance()
+			new_se.global_position = Player.global_position
+			MainScene.add_child(new_se)
+			new_se.start()
 	pass
 
 func stop_ability():
@@ -130,6 +141,11 @@ func _init_ValueTimers():
 	GreenAbilityValueTimer.one_shot = true
 	GreenAbilityValueTimer.start(green_ability_value_time)
 	Global.connect_and_detect(GreenAbilityValueTimer.connect("timeout", self, "_on_GreenAbilityValueTimer_time_out"))
+	
+	add_child(OrangeAbilityValueTimer)
+	OrangeAbilityValueTimer.one_shot = true
+	OrangeAbilityValueTimer.start(orange_ability_value_time)
+	Global.connect_and_detect(OrangeAbilityValueTimer.connect("timeout", self, "_on_OrangeAbilityValueTimer_time_out"))
 
 func _on_PurpleAbilityValueTimer_time_out():
 	change_ability_value(Global.COLOR_TYPE.PURPLE, 0.1)
@@ -137,3 +153,6 @@ func _on_PurpleAbilityValueTimer_time_out():
 func _on_GreenAbilityValueTimer_time_out():
 	change_ability_value(Global.COLOR_TYPE.GREEN, 0.1)
 	GreenAbilityValueTimer.start(green_ability_value_time)
+func _on_OrangeAbilityValueTimer_time_out():
+	change_ability_value(Global.COLOR_TYPE.ORANGE, 0.1)
+	OrangeAbilityValueTimer.start(orange_ability_value_time)
