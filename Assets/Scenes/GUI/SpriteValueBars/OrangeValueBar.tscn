@@ -12,7 +12,7 @@ load_path = "res://.import/bar_under.png-f68f49c780d7eda4510e83fee9b70d09.stex"
 flags = 4
 load_path = "res://.import/bar_over.png-b92754b2ed69861e139ea13c81ba1c7a.stex"
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 font_data = ExtResource( 2 )
 
@@ -21,6 +21,7 @@ modulate = Color( 0.964706, 0.682353, 0.192157, 1 )
 margin_top = 40.0
 margin_right = 40.0
 margin_bottom = 232.0
+rect_pivot_offset = Vector2( 19, 172 )
 max_value = 1.0
 step = 0.01
 value = 0.4
@@ -48,7 +49,7 @@ __meta__ = {
 margin_top = -40.0
 margin_right = 40.0
 margin_bottom = 1.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "5"
 align = 1
 __meta__ = {

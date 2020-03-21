@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/Art/Particles/Rotated/spark_05_rotated.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Art/Particles/spark_07.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Art/Particles/Rotated/spark_06_rotated.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scenes/SE/SE_Focus/SE_ShootFocus_1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Scenes/SE/SE_Shoot_1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Scenes/Particles/RedParticles.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Scenes/Sprites/Red/AbilitySERed.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Art/Particles/Rotated/spark_07_rotated.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Art/Particles/spark_light.png" type="Texture" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 8 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 40 )
+
+[node name="AbilitySERed" type="Node2D"]
+modulate = Color( 0.913725, 0.223529, 0.223529, 1 )
+script = ExtResource( 7 )
+
+[node name="RedParticles" parent="." instance=ExtResource( 6 )]
+scale = Vector2( 1.4, 1.4 )
+
+[node name="SE_ShootFocus_1" parent="." instance=ExtResource( 4 )]
+
+[node name="SE_Shoot_1" parent="." instance=ExtResource( 5 )]
+scale = Vector2( 0.35, 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+offset = Vector2( 255, 0 )
+
+[node name="Light2D" type="Light2D" parent="AnimatedSprite"]
+position = Vector2( 255, 0 )
+scale = Vector2( 1, 0.6 )
+texture = ExtResource( 9 )
+texture_scale = 1.5
+energy = 2.0
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+offset = Vector2( 255, 0 )
+
+[node name="Light2D" type="Light2D" parent="AnimatedSprite2"]
+position = Vector2( 255, 0 )
+scale = Vector2( 1, 0.6 )
+texture = ExtResource( 9 )
+texture_scale = 1.5
+energy = 2.0
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2( 1536, 0 )
+space_override = 3
+gravity = 0.0
+priority = 1.0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource( 3 )

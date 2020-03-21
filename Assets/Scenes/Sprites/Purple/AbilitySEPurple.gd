@@ -6,7 +6,6 @@ var lines_start_position := []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	Global.connect_and_detect($AnimationPlayer.connect("animation_finished", self, "_on_animation_finished"))
 	pass # Replace with function body.
 
@@ -17,9 +16,11 @@ func _draw():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$SE_Focus_3.global_position = Sprites.Player.global_position
 	pass
 
 func start():
+	$SE_Focus_3.play("default")
 	$AnimationPlayer.play("work")
 	pass
 

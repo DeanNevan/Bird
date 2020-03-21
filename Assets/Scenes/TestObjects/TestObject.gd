@@ -18,3 +18,7 @@ func visible_on_screen():
 
 func invisible_on_screen():
 	$Light2D.enabled = false
+
+func get_damage(damage):
+	print("i get hurt!!!!")
+	queue_free()

@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Scenes/Sprites/Orange/AbilitySEOrange.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Art/Particles/circle_04.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Art/Particles/twirl_03.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine9.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine4.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine3.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine5.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine2.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine6.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine7.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Art/SE/Lines/BigLine8.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "default",
+"speed": 10.0
+} ]
 
 [node name="AbilitySEOrange" type="Node2D"]
 script = ExtResource( 1 )
@@ -16,3 +33,7 @@ texture = ExtResource( 2 )
 [node name="Sprite2" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 offset = Vector2( -65, 35 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+offset = Vector2( 163, 0 )

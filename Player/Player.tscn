@@ -70,6 +70,7 @@ color_ramp = SubResource( 5 )
 
 [node name="Player" type="RigidBody2D"]
 z_index = 1
+contacts_reported = 2
 script = ExtResource( 22 )
 __meta__ = {
 "_edit_group_": true
@@ -83,7 +84,7 @@ material = SubResource( 1 )
 scale = Vector2( 0.5, 0.45 )
 frames = SubResource( 2 )
 animation = "bird"
-frame = 9
+frame = 2
 playing = true
 offset = Vector2( -50, 30 )
 flip_h = true

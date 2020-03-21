@@ -28,6 +28,7 @@ var rotate_speed
 
 var is_controlling = false
 var is_controlled_by_ability = false
+var can_be_damaged = true
 
 var visible_targets = []
 

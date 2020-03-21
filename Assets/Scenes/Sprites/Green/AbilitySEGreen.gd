@@ -16,10 +16,13 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	global_position = Sprites.Player.global_position
+	pass
 
 func start():
+	$SE_Focus_2.play("default")
+	yield($SE_Focus_2, "animation_finished")
 	var TweenScale = Tween.new()
 	add_child(TweenScale)
 	TweenScale.interpolate_property(self, "scale", scale, end_scale, time, Tween.TRANS_LINEAR, Tween.EASE_OUT)

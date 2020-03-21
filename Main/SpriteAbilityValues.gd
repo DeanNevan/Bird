@@ -32,4 +32,10 @@ func _on_changed_sprite(new_type):
 			yield(get_tree(), "idle_frame")
 			$HBoxContainer/OrangeValueBar.rect_scale = Vector2(1.5, 1.5)
 			pass
+		Global.COLOR_TYPE.RED:
+			$HBoxContainer.get_child(0).rect_scale = Vector2(1, 1)
+			$HBoxContainer.move_child($HBoxContainer/RedValueBar, 0)
+			yield(get_tree(), "idle_frame")
+			$HBoxContainer/RedValueBar.rect_scale = Vector2(1.5, 1.5)
+			pass
 	pass

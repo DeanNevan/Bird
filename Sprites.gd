@@ -9,12 +9,20 @@ signal changed_sprite(new_sprite)
 var GREEN_SPRITE = preload("res://Assets/Scenes/Sprites/Green/GreenSprite.tscn")
 var PURPLE_SPRITE = preload("res://Assets/Scenes/Sprites/Purple/PurpleSprite.tscn")
 var ORANGE_SPRITE = preload("res://Assets/Scenes/Sprites/Orange/OrangleSprite.tscn")
+var RED_SPRITE = preload("res://Assets/Scenes/Sprites/Red/RedSprite.tscn")
 
-
-var player_sprites = {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0, Global.COLOR_TYPE.ORANGE : 0}
+var player_sprites := { Global.COLOR_TYPE.PURPLE : 0,
+						Global.COLOR_TYPE.GREEN : 0,
+						Global.COLOR_TYPE.ORANGE : 0,
+						Global.COLOR_TYPE.RED : 0
+						}
 
 #主动能力的能力值
-var sprites_ability_values := {Global.COLOR_TYPE.PURPLE : 0, Global.COLOR_TYPE.GREEN : 0, Global.COLOR_TYPE.ORANGE : 0}
+var sprites_ability_values := { Global.COLOR_TYPE.PURPLE : 0,
+								Global.COLOR_TYPE.GREEN : 0,
+								Global.COLOR_TYPE.ORANGE : 0,
+								Global.COLOR_TYPE.RED : 0
+								}
 
 var is_launching_ability = false
 
@@ -26,6 +34,7 @@ var MainScene
 var PURPLE_SE = preload("res://Assets/Scenes/Sprites/Purple/AbilitySEPurple.tscn")
 var GREEN_SE = preload("res://Assets/Scenes/Sprites/Green/AbilitySEGreen.tscn")
 var ORANGE_SE = preload("res://Assets/Scenes/Sprites/Orange/AbilitySEOrange.tscn")
+var RED_SE = preload("res://Assets/Scenes/Sprites/Red/AbilitySERed.tscn")
 onready var Draw = Node2D.new()
 onready var PurpleAbilityValueTimer = Timer.new()
 var purple_ability_value_time = 1
@@ -33,6 +42,8 @@ onready var GreenAbilityValueTimer = Timer.new()
 var green_ability_value_time = 0.5
 onready var OrangeAbilityValueTimer = Timer.new()
 var orange_ability_value_time = 0.8
+onready var RedAbilityValueTimer = Timer.new()
+var red_ability_value_time = 1.5
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(Draw)
@@ -62,6 +73,8 @@ func add_new_sprite(target_type = 0):
 			new_target = PURPLE_SPRITE.instance()
 		Global.COLOR_TYPE.ORANGE:
 			new_target = ORANGE_SPRITE.instance()
+		Global.COLOR_TYPE.RED:
+			new_target = RED_SPRITE.instance()
 	new_target.Player = Player
 	new_target.modulate = Color(1, 1, 1, 0)
 	new_target.is_working = false
@@ -120,6 +133,17 @@ func launch_ability():
 			change_ability_value(now_type, -1)
 			var new_se = ORANGE_SE.instance()
 			new_se.global_position = Player.global_position
+			Global.connect_and_detect(new_se.connect("dodged", self, "_on_OrangeAbility_dodged"))
+			Global.connect_and_detect(new_se.connect("damaged", self, "_on_OrangeAbility_damaged"))
+			MainScene.add_child(new_se)
+			new_se.start()
+		Global.COLOR_TYPE.RED:
+			if sprites_ability_values[now_type] < 1:
+				return
+			change_ability_value(now_type, -1)
+			var new_se = RED_SE.instance()
+			new_se.global_position = Player.global_position
+			Global.connect_and_detect(new_se.connect("damaged", self, "_on_RedAbility_damaged"))
 			MainScene.add_child(new_se)
 			new_se.start()
 	pass
@@ -146,6 +170,11 @@ func _init_ValueTimers():
 	OrangeAbilityValueTimer.one_shot = true
 	OrangeAbilityValueTimer.start(orange_ability_value_time)
 	Global.connect_and_detect(OrangeAbilityValueTimer.connect("timeout", self, "_on_OrangeAbilityValueTimer_time_out"))
+	
+	add_child(RedAbilityValueTimer)
+	RedAbilityValueTimer.one_shot = true
+	RedAbilityValueTimer.start(red_ability_value_time)
+	Global.connect_and_detect(RedAbilityValueTimer.connect("timeout", self, "_on_RedAbilityValueTimer_time_out"))
 
 func _on_PurpleAbilityValueTimer_time_out():
 	change_ability_value(Global.COLOR_TYPE.PURPLE, 0.1)
@@ -156,3 +185,16 @@ func _on_GreenAbilityValueTimer_time_out():
 func _on_OrangeAbilityValueTimer_time_out():
 	change_ability_value(Global.COLOR_TYPE.ORANGE, 0.1)
 	OrangeAbilityValueTimer.start(orange_ability_value_time)
+func _on_RedAbilityValueTimer_time_out():
+	change_ability_value(Global.COLOR_TYPE.RED, 0.1)
+	RedAbilityValueTimer.start(red_ability_value_time)
+
+func _on_OrangeAbility_dodged():
+	change_ability_value(Global.COLOR_TYPE.ORANGE, 0.5)
+	pass
+func _on_OrangeAbility_damaged():
+	change_ability_value(Global.COLOR_TYPE.ORANGE, 0.2)
+
+func _on_RedAbility_damaged(body):
+	change_ability_value(Global.COLOR_TYPE.RED, 0.3)
+	pass
