@@ -38,6 +38,9 @@ var max_particles_count = 50
 var max_particles_velocity = 450
 var max_particles_angle = 0.5
 
+var time_scale = 1
+var entered_time_zone_number = 0
+
 onready var TweenVelocity = Tween.new()
 onready var WakeFlame = preload("res://Assets/Scenes/WakeFlame/WakeFlame.tscn").instance()
 #onready var ViewAreaLight = preload("res://Assets/Scenes/ViewArea/ViewAreaLight.tscn").instance()
@@ -124,7 +127,7 @@ func _process(delta):
 	else:
 		TweenVelocity.stop_all()
 		is_controlling = false
-	rotate_object($AnimatedSprite, rotate_speed * 0.15, (get_global_mouse_position() - global_position).normalized(), delta)
+	rotate_object($AnimatedSprite, rotate_speed * 0.15, (get_global_mouse_position() - global_position).normalized(), delta * time_scale)
 	#$AnimatedSprite.global_rotation
 	if is_controlling:
 		$Particles2D.emitting = true
@@ -141,8 +144,8 @@ func _process(delta):
 			points_array.pop_front()
 			points_array.append(self.global_position + wake_flame_offset - Vector2(1, 0).rotated($AnimatedSprite.global_rotation) * 90)
 		WakeFlame.points_array = points_array
-		var change_speed = 40.0 / speed
-		$AnimatedSprite.speed_scale = 3 * sqrt(linear_velocity.length() / max_speed)
+		var change_speed = (1 / time_scale) * (40.0 / speed)
+		$AnimatedSprite.speed_scale = time_scale * 3 * sqrt(linear_velocity.length() / max_speed)
 		#rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
 		var velocity_angle = $AnimatedSprite.global_rotation + control_direction.angle()
 		var velocity_direction = Vector2(cos(velocity_angle), sin(velocity_angle))
@@ -210,3 +213,13 @@ func _on_changed_sprite(new_type):
 	$Light2D.smooth_change_light_energy(1.2, 0.5)
 	
 	WakeFlame.modulate = (color + Color.white) / 2
+
+func entered_time_zone(time_zone_scale):
+	entered_time_zone_number += 1
+	time_scale = time_zone_scale
+	pass
+
+func exited_time_zone():
+	entered_time_zone_number -= 1
+	if entered_time_zone_number < 1:
+		time_scale = 1

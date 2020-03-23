@@ -70,11 +70,8 @@ color_ramp = SubResource( 5 )
 
 [node name="Player" type="RigidBody2D"]
 z_index = 1
-contacts_reported = 2
+mode = 2
 script = ExtResource( 22 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="ViewAreaProcessCenter" type="Node" parent="."]
 script = ExtResource( 4 )

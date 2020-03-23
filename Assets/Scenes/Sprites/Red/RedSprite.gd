@@ -16,7 +16,7 @@ func _init():
 	view_radius *= 1.55
 	add_to_group("red_sprites")
 	color_type = Global.COLOR_TYPE.RED
-	light_energy = 2.5
+	light_energy = 2
 
 func _ready():
 	add_child(TweenPosition)

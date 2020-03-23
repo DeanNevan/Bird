@@ -16,7 +16,7 @@ var is_working = false
 var tail_size = 76
 var points_array := []
 
-var light_energy = 1.35
+var light_energy = 2
 
 #var visible_targets := []
 

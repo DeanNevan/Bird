@@ -3,15 +3,15 @@
 [ext_resource path="res://Assets/Art/Particles/window_04.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Scenes/Particles/GreenParticles.gd" type="Script" id=2]
 
-[sub_resource type="CanvasItemMaterial" id=4]
+[sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.291391, 0.490066, 0.721854, 0.993378 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.803922, 1, 1, 1, 1, 1, 1, 1, 0.615686, 1, 1, 1, 0 )
 
 [node name="GreenParticles" type="Node2D"]
-material = SubResource( 4 )
+material = SubResource( 1 )
 script = ExtResource( 2 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
@@ -28,7 +28,7 @@ damping = 61.29
 angle_random = 1.0
 scale_amount = 0.03
 scale_amount_random = 0.05
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }

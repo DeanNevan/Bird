@@ -1,0 +1,96 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Assets/Scenes/ViewArea/CircleViewArea.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Scenes/DetectedBody.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Art/Particles/circle_05.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scenes/Sprites/Blue/BlueSprite.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Art/Sprites/Blue/2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Art/Sprites/Blue/3.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Art/Sprites/Blue/5.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Art/Sprites/Blue/4.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Art/Sprites/Blue/6.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Art/Sprites/Blue/7.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Art/Sprites/Blue/1.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Art/Sprites/Blue/12.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Art/Sprites/Blue/15.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Art/Sprites/Blue/13.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Art/Sprites/Blue/9.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Art/Sprites/Blue/14.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Art/Sprites/Blue/8.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Art/Sprites/Blue/10.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Art/Sprites/Blue/11.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Scenes/Particles/BlueParticles.tscn" type="PackedScene" id=20]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 16 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "2",
+"speed": 9.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "1",
+"speed": 8.0
+} ]
+
+[sub_resource type="Animation" id=2]
+resource_name = "1"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ 0.0, 20.0, -180.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "2"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 0.5, 0.5, 1 ),
+"update": 0,
+"values": [ -180.0, -160.0, -360.0 ]
+}
+
+[node name="BlueSprite" type="Node2D"]
+z_index = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 0.113725, 0.164706, 0.611765, 1 )
+frames = SubResource( 1 )
+animation = "1"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/1 = SubResource( 2 )
+anims/2 = SubResource( 3 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+texture_scale = 2.4
+color = Color( 0.337255, 0.498039, 0.980392, 1 )
+energy = 1.45
+
+[node name="Particles" parent="." instance=ExtResource( 20 )]
+modulate = Color( 0.305882, 0.447059, 1, 1 )
+show_behind_parent = true
+scale = Vector2( 0.6, 0.6 )
+
+[node name="ViewArea" parent="." instance=ExtResource( 1 )]
+
+[node name="DetectedBody" parent="." instance=ExtResource( 2 )]

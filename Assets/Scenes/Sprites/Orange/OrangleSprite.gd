@@ -16,7 +16,7 @@ func _init():
 	view_radius *= 1.6
 	add_to_group("orange_sprites")
 	color_type = Global.COLOR_TYPE.ORANGE
-	light_energy = 2
+	light_energy = 2.2
 
 func _ready():
 	add_child(TweenPosition)

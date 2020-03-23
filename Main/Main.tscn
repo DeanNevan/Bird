@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/GUI/ZhuanPan/ZhuanPan.tscn" type="PackedScene" id=2]
@@ -11,11 +11,16 @@
 [ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/PurpleValueBar.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/OrangeValueBar.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/RedValueBar.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/BlueValueBar.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/Scenes/TestObjects/TestWall.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Art/full_screen_light.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/YellowValueBar.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
 background_energy = 1.5
 background_canvas_max_layer = 1
+ambient_light_color = Color( 1, 1, 1, 1 )
 fog_color = Color( 0, 0, 0, 1 )
 fog_sun_amount = 1.0
 tonemap_exposure = 0.4
@@ -53,7 +58,7 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GUI/SpriteAbilityValues"]
 margin_left = 20.0
-margin_right = 232.0
+margin_right = 348.0
 margin_bottom = 172.0
 custom_constants/separation = 20
 __meta__ = {
@@ -64,21 +69,18 @@ __meta__ = {
 margin_top = 0.0
 margin_right = 38.0
 margin_bottom = 172.0
-rect_pivot_offset = Vector2( 19, 172 )
 
 [node name="PurpleValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 9 )]
 margin_left = 58.0
 margin_top = 0.0
 margin_right = 96.0
 margin_bottom = 172.0
-rect_pivot_offset = Vector2( 19, 172 )
 
 [node name="OrangeValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 10 )]
 margin_left = 116.0
 margin_top = 0.0
 margin_right = 154.0
 margin_bottom = 172.0
-rect_pivot_offset = Vector2( 19, 172 )
 
 [node name="RedValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 11 )]
 margin_left = 174.0
@@ -86,11 +88,28 @@ margin_top = 0.0
 margin_right = 212.0
 margin_bottom = 172.0
 
+[node name="BlueValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 12 )]
+margin_left = 232.0
+margin_top = 0.0
+margin_right = 270.0
+margin_bottom = 172.0
+
+[node name="YellowValueBar" parent="GUI/SpriteAbilityValues/HBoxContainer" instance=ExtResource( 15 )]
+margin_left = 290.0
+margin_top = 0.0
+margin_right = 328.0
+margin_bottom = 172.0
+
+[node name="Light2D" type="Light2D" parent="GUI"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 14 )
+energy = 0.18
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 288, 32 )
+position = Vector2( -976, 416 )
 
 [node name="MainCamera" type="Camera2D" parent="."]
 current = true
@@ -124,3 +143,23 @@ position = Vector2( -976.656, 1106.48 )
 rotation = 1.01578
 scale = Vector2( 5.19423, 1 )
 texture = ExtResource( 6 )
+
+[node name="TestWall" parent="." instance=ExtResource( 13 )]
+position = Vector2( -688, 576 )
+rotation = 1.15366
+
+[node name="TestWall5" parent="." instance=ExtResource( 13 )]
+position = Vector2( -440, 592 )
+rotation = 1.15366
+
+[node name="TestWall2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1976, -536 )
+rotation = 0.383972
+
+[node name="TestWall3" parent="." instance=ExtResource( 13 )]
+position = Vector2( 1584, 384 )
+rotation = -0.600393
+
+[node name="TestWall4" parent="." instance=ExtResource( 13 )]
+position = Vector2( -568, -640 )
+rotation = -1.88321

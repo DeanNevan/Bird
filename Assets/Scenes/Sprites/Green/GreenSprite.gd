@@ -13,6 +13,7 @@ func _init():
 	view_radius *= 1.2
 	add_to_group("green_sprites")
 	color_type = Global.COLOR_TYPE.GREEN
+	light_energy = 2.6
 
 func _ready():
 	add_child(FloatTimer)

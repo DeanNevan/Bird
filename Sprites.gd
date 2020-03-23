@@ -10,18 +10,24 @@ var GREEN_SPRITE = preload("res://Assets/Scenes/Sprites/Green/GreenSprite.tscn")
 var PURPLE_SPRITE = preload("res://Assets/Scenes/Sprites/Purple/PurpleSprite.tscn")
 var ORANGE_SPRITE = preload("res://Assets/Scenes/Sprites/Orange/OrangleSprite.tscn")
 var RED_SPRITE = preload("res://Assets/Scenes/Sprites/Red/RedSprite.tscn")
+var BLUE_SPRITE = preload("res://Assets/Scenes/Sprites/Blue/BlueSprite.tscn")
+var YELLOW_SPRITE = preload("res://Assets/Scenes/Sprites/Yellow/YellowSprite.tscn")
 
 var player_sprites := { Global.COLOR_TYPE.PURPLE : 0,
 						Global.COLOR_TYPE.GREEN : 0,
 						Global.COLOR_TYPE.ORANGE : 0,
-						Global.COLOR_TYPE.RED : 0
+						Global.COLOR_TYPE.RED : 0,
+						Global.COLOR_TYPE.BLUE : 0,
+						Global.COLOR_TYPE.YELLOW : 0
 						}
 
 #主动能力的能力值
 var sprites_ability_values := { Global.COLOR_TYPE.PURPLE : 0,
 								Global.COLOR_TYPE.GREEN : 0,
 								Global.COLOR_TYPE.ORANGE : 0,
-								Global.COLOR_TYPE.RED : 0
+								Global.COLOR_TYPE.RED : 0,
+								Global.COLOR_TYPE.BLUE : 0,
+								Global.COLOR_TYPE.YELLOW : 0
 								}
 
 var is_launching_ability = false
@@ -35,6 +41,9 @@ var PURPLE_SE = preload("res://Assets/Scenes/Sprites/Purple/AbilitySEPurple.tscn
 var GREEN_SE = preload("res://Assets/Scenes/Sprites/Green/AbilitySEGreen.tscn")
 var ORANGE_SE = preload("res://Assets/Scenes/Sprites/Orange/AbilitySEOrange.tscn")
 var RED_SE = preload("res://Assets/Scenes/Sprites/Red/AbilitySERed.tscn")
+var BLUE_SE = preload("res://Assets/Scenes/Sprites/Blue/AbilitySEBlue.tscn")
+var YELLOW_SE = preload("res://Assets/Scenes/Sprites/Yellow/AbiitySEYellow.tscn")
+
 onready var Draw = Node2D.new()
 onready var PurpleAbilityValueTimer = Timer.new()
 var purple_ability_value_time = 1
@@ -44,6 +53,10 @@ onready var OrangeAbilityValueTimer = Timer.new()
 var orange_ability_value_time = 0.8
 onready var RedAbilityValueTimer = Timer.new()
 var red_ability_value_time = 1.5
+onready var BlueAbilityValueTimer = Timer.new()
+var blue_ability_value_time = 1.2
+onready var YellowAbilityValueTimer = Timer.new()
+var yellow_ability_value_time = 1.3
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(Draw)
@@ -75,6 +88,10 @@ func add_new_sprite(target_type = 0):
 			new_target = ORANGE_SPRITE.instance()
 		Global.COLOR_TYPE.RED:
 			new_target = RED_SPRITE.instance()
+		Global.COLOR_TYPE.BLUE:
+			new_target = BLUE_SPRITE.instance()
+		Global.COLOR_TYPE.YELLOW:
+			new_target = YELLOW_SPRITE.instance()
 	new_target.Player = Player
 	new_target.modulate = Color(1, 1, 1, 0)
 	new_target.is_working = false
@@ -146,6 +163,23 @@ func launch_ability():
 			Global.connect_and_detect(new_se.connect("damaged", self, "_on_RedAbility_damaged"))
 			MainScene.add_child(new_se)
 			new_se.start()
+		Global.COLOR_TYPE.BLUE:
+			if sprites_ability_values[now_type] < 1:
+				return
+			change_ability_value(now_type, -1)
+			var new_se = BLUE_SE.instance()
+			new_se.global_position = MainScene.get_global_mouse_position()
+			MainScene.add_child(new_se)
+			new_se.start()
+		Global.COLOR_TYPE.YELLOW:
+			if sprites_ability_values[now_type] < 1:
+				return
+			change_ability_value(now_type, -1)
+			var new_se = YELLOW_SE.instance()
+			new_se.global_position = Player.global_position
+			Global.connect_and_detect(new_se.connect("perfect_defended", self, "_on_YellowAbility_perfect_defended"))
+			MainScene.add_child(new_se)
+			new_se.start()
 	pass
 
 func stop_ability():
@@ -175,6 +209,16 @@ func _init_ValueTimers():
 	RedAbilityValueTimer.one_shot = true
 	RedAbilityValueTimer.start(red_ability_value_time)
 	Global.connect_and_detect(RedAbilityValueTimer.connect("timeout", self, "_on_RedAbilityValueTimer_time_out"))
+	
+	add_child(BlueAbilityValueTimer)
+	BlueAbilityValueTimer.one_shot = true
+	BlueAbilityValueTimer.start(blue_ability_value_time)
+	Global.connect_and_detect(BlueAbilityValueTimer.connect("timeout", self, "_on_BlueAbilityValueTimer_time_out"))
+	
+	add_child(YellowAbilityValueTimer)
+	YellowAbilityValueTimer.one_shot = true
+	YellowAbilityValueTimer.start(yellow_ability_value_time)
+	Global.connect_and_detect(YellowAbilityValueTimer.connect("timeout", self, "_on_YellowAbilityValueTimer_time_out"))
 
 func _on_PurpleAbilityValueTimer_time_out():
 	change_ability_value(Global.COLOR_TYPE.PURPLE, 0.1)
@@ -188,6 +232,12 @@ func _on_OrangeAbilityValueTimer_time_out():
 func _on_RedAbilityValueTimer_time_out():
 	change_ability_value(Global.COLOR_TYPE.RED, 0.1)
 	RedAbilityValueTimer.start(red_ability_value_time)
+func _on_BlueAbilityValueTimer_time_out():
+	change_ability_value(Global.COLOR_TYPE.BLUE, 0.1)
+	BlueAbilityValueTimer.start(blue_ability_value_time)
+func _on_YellowAbilityValueTimer_time_out():
+	change_ability_value(Global.COLOR_TYPE.YELLOW, 0.1)
+	YellowAbilityValueTimer.start(yellow_ability_value_time)
 
 func _on_OrangeAbility_dodged():
 	change_ability_value(Global.COLOR_TYPE.ORANGE, 0.5)
@@ -197,4 +247,8 @@ func _on_OrangeAbility_damaged():
 
 func _on_RedAbility_damaged(body):
 	change_ability_value(Global.COLOR_TYPE.RED, 0.3)
+	pass
+
+func _on_YellowAbility_perfect_defended(body):
+	change_ability_value(Global.COLOR_TYPE.YELLOW, 1)
 	pass

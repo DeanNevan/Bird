@@ -136,6 +136,7 @@ wheel_down={
 
 2d/default_gravity_vector=Vector2( 0, 0 )
 2d/default_linear_damp=4.0
+2d/default_angular_damp=10.0
 
 [rendering]
 

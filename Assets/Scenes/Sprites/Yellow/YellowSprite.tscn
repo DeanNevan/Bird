@@ -1,0 +1,121 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Assets/Scenes/ViewArea/CircleViewArea.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Scenes/DetectedBody.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Art/Particles/circle_05.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scenes/Sprites/Yellow/YellowSprite.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Art/Sprites/Yellow/1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Art/Particles/circle_04.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Scenes/Particles/YellowParticles.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Art/Particles/circle_01.png" type="Texture" id=8]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+light_mode = 2
+
+[sub_resource type="Animation" id=2]
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 3.60501, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( -1, 1 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0 ), 0.0, 3.76124, 0, 0, Vector2( 0.325843, 1 ), 0.0802284, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.459627, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 3.76124, 0, 0, Vector2( 0.325843, 1 ), 0.0802284, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.459627, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 3.76124, 0, 0, Vector2( 0.325843, 1 ), 0.0802284, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.459627, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="YellowSprite" type="Node2D"]
+z_index = 1
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.623529, 0.639216, 0.12549, 1 )
+material = SubResource( 1 )
+rotation = 6.28268
+scale = Vector2( 0.803303, 1 )
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+texture_scale = 2.8
+color = Color( 1, 0.968627, 0.498039, 1 )
+energy = 1.45
+
+[node name="ViewArea" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="DetectedBody" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="Particles" type="Node2D" parent="."]
+modulate = Color( 0.996078, 1, 0.580392, 1 )
+show_behind_parent = true
+script = ExtResource( 7 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Particles"]
+amount = 4
+lifetime = 1.7
+local_coords = false
+texture = ExtResource( 8 )
+emission_shape = 2
+emission_rect_extents = Vector2( 100, 100 )
+gravity = Vector2( 0, 0 )
+scale_amount = 0.06
+scale_amount_random = 0.45
+scale_amount_curve = SubResource( 7 )
+color_ramp = SubResource( 8 )
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Particles"]
+amount = 4
+lifetime = 1.7
+local_coords = false
+texture = ExtResource( 6 )
+emission_shape = 2
+emission_rect_extents = Vector2( 100, 100 )
+gravity = Vector2( 0, 0 )
+scale_amount = 0.06
+scale_amount_random = 0.45
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="Particles"]
+amount = 4
+lifetime = 1.7
+local_coords = false
+texture = ExtResource( 8 )
+emission_shape = 2
+emission_rect_extents = Vector2( 100, 100 )
+gravity = Vector2( 0, 0 )
+scale_amount = 0.06
+scale_amount_random = 0.45
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )

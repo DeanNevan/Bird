@@ -51,7 +51,7 @@ anims/default = SubResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
-texture_scale = 2.0
+texture_scale = 2.4
 color = Color( 0.776471, 0.415686, 1, 1 )
 
 [node name="Particles" type="Node2D" parent="."]

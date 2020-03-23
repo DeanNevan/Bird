@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Fonts/SourceHanSansCN-Medium.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Scenes/GUI/ZhuanPanSprite/Yellow/YellowSpriteButton.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Art/Sprites/Yellow/1.png" type="Texture" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/circle_light.png-e536ce017dd275dcc5dc4c079be6b23b.stex"
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/selection.png-b227f34c2defda1d8a73c4b3412165ba.stex"
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 1 )
+
+[node name="YellowSpriteButton" type="TextureButton"]
+self_modulate = Color( 0.690196, 0.635294, 0.14902, 1 )
+margin_right = 120.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 120, 120 )
+rect_pivot_offset = Vector2( 60, 60 )
+mouse_filter = 1
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 60, 60 )
+z_index = 1
+texture = SubResource( 1 )
+texture_scale = 0.5
+color = Color( 1, 0.992157, 0.52549, 1 )
+range_item_cull_mask = 3
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+show_behind_parent = true
+margin_right = 120.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+modulate = Color( 0.658824, 0.619608, 0.0941176, 1 )
+margin_right = 122.0
+margin_bottom = 122.0
+value = 50.0
+texture_progress = SubResource( 2 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 1, 0.929412, 0.356863, 1 )
+margin_left = 96.0
+margin_top = 8.0
+margin_right = 114.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 3 )
+text = "5"
+__meta__ = {
+"_edit_use_anchors_": false
+}

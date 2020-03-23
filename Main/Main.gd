@@ -8,6 +8,7 @@ extends Node2D
 #var Player = preload("res://Player/Player.tscn").instance()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	Sprites.MainScene = self
 	#add_child(Player)
 	Sprites.Player = $Player
@@ -28,6 +29,19 @@ func _ready():
 	Sprites.add_new_sprite(Global.COLOR_TYPE.RED)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.RED)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.RED)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.BLUE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.BLUE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.BLUE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.BLUE)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
 	pass # Replace with function body.
 
 

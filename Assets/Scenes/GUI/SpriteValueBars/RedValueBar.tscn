@@ -1,5 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/RedValueBar.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/SourceHanSansCN-Medium.otf" type="DynamicFontData" id=5]
 
 [sub_resource type="StreamTexture" id=1]
@@ -10,21 +11,11 @@ load_path = "res://.import/bar_under.png-f68f49c780d7eda4510e83fee9b70d09.stex"
 flags = 4
 load_path = "res://.import/bar_over.png-b92754b2ed69861e139ea13c81ba1c7a.stex"
 
-[sub_resource type="GDScript" id=3]
-script/source = "extends \"res://Assets/Scripts/BasicSpritesAbilityValueBar.gd\"
-
-func _init():
-	sprite_type = Global.COLOR_TYPE.RED
-
-func _ready():
-	pass # Replace with function body.
-"
-
-[sub_resource type="StreamTexture" id=4]
+[sub_resource type="StreamTexture" id=3]
 flags = 4
 load_path = "res://.import/1.png-515ee8031279f66ee16011c3c99c1340.stex"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 40
 font_data = ExtResource( 5 )
 
@@ -40,7 +31,7 @@ value = 0.4
 texture_under = SubResource( 1 )
 texture_progress = SubResource( 2 )
 fill_mode = 3
-script = SubResource( 3 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -51,7 +42,7 @@ margin_right = 40.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 40, 40 )
 rect_pivot_offset = Vector2( 20, 20 )
-texture = SubResource( 4 )
+texture = SubResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -61,7 +52,7 @@ __meta__ = {
 margin_top = -40.0
 margin_right = 40.0
 margin_bottom = 1.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "5"
 align = 1
 __meta__ = {

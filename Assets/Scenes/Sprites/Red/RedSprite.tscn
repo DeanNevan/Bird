@@ -30,13 +30,6 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( -1, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Curve" id=7]
-_data = [ Vector2( 0, 0.810096 ), 0.0, 2.04434, 0, 0, Vector2( 0.303371, 1 ), -0.108784, -0.108784, 0, 0, Vector2( 1, 0.53125 ), -2.17832, 0.0, 0, 0 ]
-
-[sub_resource type="Gradient" id=8]
-offsets = PoolRealArray( 0, 0.204969, 1 )
-colors = PoolColorArray( 1, 1, 1, 0.137255, 1, 1, 1, 1, 1, 1, 1, 0 )
-
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 0.810096 ), 0.0, 2.04434, 0, 0, Vector2( 0.303371, 1 ), -0.108784, -0.108784, 0, 0, Vector2( 1, 0.53125 ), -2.17832, 0.0, 0, 0 ]
 
@@ -48,6 +41,13 @@ colors = PoolColorArray( 1, 1, 1, 0.137255, 1, 1, 1, 1, 1, 1, 1, 0 )
 _data = [ Vector2( 0, 0.810096 ), 0.0, 2.04434, 0, 0, Vector2( 0.303371, 1 ), -0.108784, -0.108784, 0, 0, Vector2( 1, 0.53125 ), -2.17832, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.204969, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.137255, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0.810096 ), 0.0, 2.04434, 0, 0, Vector2( 0.303371, 1 ), -0.108784, -0.108784, 0, 0, Vector2( 1, 0.53125 ), -2.17832, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=8]
 offsets = PoolRealArray( 0, 0.204969, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.137255, 1, 1, 1, 1, 1, 1, 1, 0 )
 
@@ -74,7 +74,6 @@ energy = 1.45
 
 [node name="Particles" type="Node2D" parent="."]
 modulate = Color( 0.67451, 0.160784, 0.160784, 1 )
-scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 4 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Particles"]
@@ -88,8 +87,8 @@ angle = 360.0
 angle_random = 1.0
 scale_amount = 0.2
 scale_amount_random = 0.55
-scale_amount_curve = SubResource( 7 )
-color_ramp = SubResource( 8 )
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="Particles"]
 amount = 4
@@ -102,8 +101,8 @@ angle = 360.0
 angle_random = 1.0
 scale_amount = 0.2
 scale_amount_random = 0.55
-scale_amount_curve = SubResource( 7 )
-color_ramp = SubResource( 8 )
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
 
 [node name="CPUParticles2D3" type="CPUParticles2D" parent="Particles"]
 amount = 4
@@ -116,8 +115,8 @@ angle = 360.0
 angle_random = 1.0
 scale_amount = 0.2
 scale_amount_random = 0.55
-scale_amount_curve = SubResource( 3 )
-color_ramp = SubResource( 4 )
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )
 
 [node name="CPUParticles2D4" type="CPUParticles2D" parent="Particles"]
 amount = 4
@@ -130,8 +129,8 @@ angle = 360.0
 angle_random = 1.0
 scale_amount = 0.2
 scale_amount_random = 0.55
-scale_amount_curve = SubResource( 5 )
-color_ramp = SubResource( 6 )
+scale_amount_curve = SubResource( 7 )
+color_ramp = SubResource( 8 )
 
 [node name="ViewArea" parent="." instance=ExtResource( 1 )]
 

@@ -1,0 +1,75 @@
+extends Node2D
+
+signal perfect_defended(body)
+
+var armor_value = 40
+
+var armor_start_time = 0.3
+var armor_hold_time = 3
+
+#var ArcArmor = preload("res://Assets/Scenes/ArcArmor/ArcArmor.tscn").instance()
+var ArcArmor
+onready var TimerPerfectDefend = Timer.new()
+var perfect_defend_SE = preload("res://Assets/Scenes/SE/SE_Focus/SE_Focus_1.tscn")
+var perfect_defend_time = 0.75
+var is_perfect_defending = true
+var has_perfect_defended = false
+onready var Tween1 = Tween.new()
+onready var Player = Sprites.Player
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	ArcArmor = $ArcArmor
+	Global.connect_and_detect(ArcArmor.connect("body_entered", self, "_on_ArcArmor_body_entered"))
+	add_child(TimerPerfectDefend)
+	TimerPerfectDefend.one_shot = true
+	Global.connect_and_detect(TimerPerfectDefend.connect("timeout", self, "_on_TimerPerfectDefend_timeout"))
+	Global.connect_and_detect(connect("perfect_defended", self, "_on_perfect_defended"))
+	add_child(Tween1)
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	global_rotation = (get_global_mouse_position() - Player.global_position).angle()
+	global_position = Player.global_position
+	pass
+
+func start():
+	ArcArmor.contact_monitor = true
+	ArcArmor.contacts_reported = 3
+	Tween1.interpolate_property(ArcArmor, "scale", Vector2(0, 0), Vector2(1, 1), armor_start_time, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	Tween1.start()
+	TimerPerfectDefend.start(perfect_defend_time)
+	ArcArmor.change_value(armor_value, armor_start_time)
+	yield(get_tree().create_timer(armor_start_time), "timeout")
+	ArcArmor.change_value(0, armor_hold_time)
+	yield(get_tree().create_timer(armor_hold_time), "timeout")
+	ArcArmor.contact_monitor = false
+	queue_free()
+	pass
+
+func _on_ArcArmor_body_entered(body):
+	if !is_instance_valid(body):
+		return
+	if body.type == Global.TYPE.ENEMY:
+		print("defend!")
+		if is_perfect_defending:
+			emit_signal("perfect_defended", body)
+	pass
+
+func _on_TimerPerfectDefend_timeout():
+	print("no perfect")
+	is_perfect_defending = false
+
+func _on_perfect_defended(body):
+	if has_perfect_defended:
+		return
+	var new_SE = perfect_defend_SE.instance()
+	add_child(new_SE)
+	new_SE.scale = Vector2(0.9, 0.9)
+	new_SE.play("default")
+	
+	#new_SE.global_position = Player.global_position
+	#new_SE.global_position = Player.global_position
+	print("perfect!!")
+	pass

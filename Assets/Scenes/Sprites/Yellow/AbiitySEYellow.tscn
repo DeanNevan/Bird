@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Scenes/Sprites/Yellow/AbiitySEYellow.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scenes/ArcArmor/ArcArmor.tscn" type="PackedScene" id=2]
+
+[node name="AbiitySEYellow" type="Node2D"]
+modulate = Color( 1, 0.956863, 0.32549, 1 )
+script = ExtResource( 1 )
+
+[node name="ArcArmor" parent="." instance=ExtResource( 2 )]
