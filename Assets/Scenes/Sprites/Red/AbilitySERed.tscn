@@ -69,9 +69,12 @@ space_override = 3
 gravity = 0.0
 priority = 1.0
 monitorable = false
+collision_layer = 32
+collision_mask = 124
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
+collision_mask = 76

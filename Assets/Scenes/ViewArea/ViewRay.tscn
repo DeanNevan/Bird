@@ -3,4 +3,5 @@
 [ext_resource path="res://Assets/Scenes/ViewArea/ViewRay.gd" type="Script" id=1]
 
 [node name="ViewRay" type="RayCast2D"]
+collision_mask = 127
 script = ExtResource( 1 )

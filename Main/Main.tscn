@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/GUI/ZhuanPan/ZhuanPan.tscn" type="PackedScene" id=2]
@@ -15,8 +15,13 @@
 [ext_resource path="res://Assets/Scenes/TestObjects/TestWall.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Art/full_screen_light.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Scenes/GUI/SpriteValueBars/YellowValueBar.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Assets/Fonts/SourceHanSansCN-Heavy.otf" type="DynamicFontData" id=16]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="DynamicFont" id=1]
+size = 45
+font_data = ExtResource( 16 )
+
+[sub_resource type="Environment" id=2]
 background_mode = 4
 background_energy = 1.5
 background_canvas_max_layer = 1
@@ -33,7 +38,7 @@ glow_intensity = 2.0
 glow_bicubic_upscale = true
 adjustment_enabled = true
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=3]
 light_mode = 2
 
 [node name="Main" type="Node2D"]
@@ -105,11 +110,22 @@ position = Vector2( 960, 540 )
 texture = ExtResource( 14 )
 energy = 0.18
 
+[node name="Label" type="Label" parent="GUI"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "FPS:60"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 1 )
+environment = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( -976, 416 )
+collision_mask = 1
 
 [node name="MainCamera" type="Camera2D" parent="."]
 current = true
@@ -138,7 +154,7 @@ position = Vector2( -945.428, -455.363 )
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.533333, 0.533333, 0.533333, 1 )
-material = SubResource( 2 )
+material = SubResource( 3 )
 position = Vector2( -976.656, 1106.48 )
 rotation = 1.01578
 scale = Vector2( 5.19423, 1 )

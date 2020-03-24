@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 
 Global="*res://Global.gd"
 Sprites="*res://Sprites.gd"
+Events="*res://Events.tscn"
 
 [display]
 
@@ -131,6 +132,8 @@ wheel_down={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="walls"
 2d_physics/layer_5="collections"
+2d_physics/layer_6="player_abilities"
+2d_physics/layer_7="enemy_abilities"
 
 [physics]
 

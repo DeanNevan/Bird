@@ -3,13 +3,14 @@
 [ext_resource path="res://Assets/Scenes/ViewArea/CircleViewArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Art/Particles/circle_05.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Scenes/DetectedBody.tscn" type="PackedScene" id=3]
-[ext_resource path="res://RedParticles.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Scenes/Particles/RedParticles.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Art/Sprites/Red/1.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Art/Particles/spark_03.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Scenes/Sprites/Red/RedSprite.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Art/Particles/spark_04.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Art/Particles/spark_02.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Art/Particles/spark_01.png" type="Texture" id=10]
+
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
@@ -133,5 +134,7 @@ scale_amount_curve = SubResource( 7 )
 color_ramp = SubResource( 8 )
 
 [node name="ViewArea" parent="." instance=ExtResource( 1 )]
+collision_layer = 2
+collision_mask = 124
 
 [node name="DetectedBody" parent="." instance=ExtResource( 3 )]

@@ -86,5 +86,7 @@ scale_amount_curve = SubResource( 3 )
 color_ramp = SubResource( 4 )
 
 [node name="ViewArea" parent="." instance=ExtResource( 4 )]
+collision_layer = 2
+collision_mask = 124
 
 [node name="DetectedBody" parent="." instance=ExtResource( 6 )]

@@ -40,11 +40,17 @@ func _ready():
 	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
-	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
-	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if delta != 0:
+		var fps = ceil(1 / delta)
+		$GUI/Label.text = "FPS:" + str(fps)
+		if fps <= 50:
+			$GUI/Label.modulate = Color.yellow
+			if fps <= 40:
+				$GUI/Label.modulate = Color.red
+		else:
+			$GUI/Label.modulate = Color.white

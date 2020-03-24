@@ -38,6 +38,7 @@ script = ExtResource( 11 )
 modulate = Color( 0, 1, 0.203922, 1 )
 material = SubResource( 1 )
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="."]
@@ -46,6 +47,8 @@ texture_scale = 2.5
 color = Color( 0.231373, 0.929412, 0.203922, 1 )
 
 [node name="ViewArea" parent="." instance=ExtResource( 7 )]
+collision_layer = 2
+collision_mask = 124
 
 [node name="Particles" type="Node2D" parent="."]
 modulate = Color( 0.682353, 1, 0.670588, 1 )

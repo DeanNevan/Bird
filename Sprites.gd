@@ -108,6 +108,7 @@ func remove_sprite(sprite_type = 0):
 func _on_changed_sprite_type(new_type):
 	if now_type == new_type:
 		return
+	
 	for i in get_child_count():
 		var object = get_child(i)
 		if object.has_method("appear"):
@@ -115,6 +116,7 @@ func _on_changed_sprite_type(new_type):
 				object.appear()
 			elif object.color_type == now_type:
 				object.disappear()
+		yield(get_tree(), "idle_frame")
 	now_type = new_type
 	#Player.modulate = Global.COLORS[now_type]
 	emit_signal("changed_sprite", now_type)

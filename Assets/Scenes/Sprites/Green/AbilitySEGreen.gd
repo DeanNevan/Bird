@@ -8,7 +8,7 @@ var light_time = 0.8
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Light2D.energy = 2.9
+	$Light2D.energy = 1
 	$CircleViewArea.user = Sprites.Player
 	$CircleViewArea.is_perspective = true
 	$CircleViewArea.update_signal_connection()

@@ -79,5 +79,7 @@ __meta__ = {
 }
 
 [node name="ViewArea" parent="." instance=ExtResource( 2 )]
+collision_layer = 2
+collision_mask = 124
 
 [node name="DetectedBody" parent="." instance=ExtResource( 1 )]
