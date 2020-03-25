@@ -3,14 +3,21 @@
 [ext_resource path="res://Assets/Scenes/ViewArea/ViewArea.gd" type="Script" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
+resource_local_to_scene = true
 points = PoolVector2Array( 0, 0, 120, -50, 120, 50 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
+resource_local_to_scene = true
 points = PoolVector2Array( 120, -50, 130, 0, 120, 50 )
 
 [sub_resource type="CircleShape2D" id=3]
+resource_local_to_scene = true
 
 [node name="ViewArea" type="Area2D"]
+gravity_vec = Vector2( 0, 0 )
+linear_damp = 0.0
+angular_damp = 0.0
+monitorable = false
 collision_mask = 127
 script = ExtResource( 1 )
 

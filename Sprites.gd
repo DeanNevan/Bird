@@ -32,7 +32,7 @@ var sprites_ability_values := { Global.COLOR_TYPE.PURPLE : 0,
 
 var is_launching_ability = false
 
-var now_type
+var now_type = Global.COLOR_TYPE.WHITE
 
 var Player
 var MainScene
@@ -116,7 +116,7 @@ func _on_changed_sprite_type(new_type):
 				object.appear()
 			elif object.color_type == now_type:
 				object.disappear()
-		yield(get_tree(), "idle_frame")
+		#yield(get_tree(), "idle_frame")
 	now_type = new_type
 	#Player.modulate = Global.COLORS[now_type]
 	emit_signal("changed_sprite", now_type)
@@ -124,6 +124,8 @@ func _on_changed_sprite_type(new_type):
 
 func launch_ability():
 	if now_type == null:
+		return
+	if !sprites_ability_values.has(now_type):
 		return
 	if sprites_ability_values[now_type] <= 0:
 		return

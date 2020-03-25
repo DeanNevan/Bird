@@ -72,12 +72,16 @@ func _on_ViewArea_body_exited(body):
 
 func _on_ViewRay_target_visible(_target):
 	if targets.has(_target) and !visible_targets.has(_target):
+		if user.type == Global.TYPE.PLAYER:
+			print("111")
 		emit_signal("body_visible", _target)
 		visible_targets.append(_target)
 	pass
 
 func _on_ViewRay_target_invisible(_target):
 	if visible_targets.has(_target):
+		if user.type == Global.TYPE.PLAYER:
+			print("222")
 		emit_signal("body_invisible", _target)
 		visible_targets.erase(_target)
 	pass

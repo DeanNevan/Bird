@@ -7,7 +7,7 @@ var armor_value = 40
 var armor_start_time = 0.3
 var armor_hold_time = 3
 
-var shock_wave_radius = 900
+var shock_wave_radius = 1500
 
 #var ArcArmor = preload("res://Assets/Scenes/ArcArmor/ArcArmor.tscn").instance()
 var ArcArmor

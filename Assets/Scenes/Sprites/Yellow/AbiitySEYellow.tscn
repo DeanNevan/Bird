@@ -1,9 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Scenes/Sprites/Yellow/AbiitySEYellow.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/ArcArmor/ArcArmor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Art/quan.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Scenes/Sprites/Yellow/RigidBody2D.gd" type="Script" id=4]
+
+[sub_resource type="PhysicsMaterial" id=2]
+bounce = 0.5
+absorbent = true
+
+[sub_resource type="PhysicsMaterial" id=3]
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
@@ -15,11 +22,13 @@ script = ExtResource( 1 )
 
 [node name="ArcArmor" parent="." instance=ExtResource( 2 )]
 collision_mask = 92
+physics_material_override = SubResource( 2 )
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 collision_layer = 32
 collision_mask = 76
 mode = 1
+physics_material_override = SubResource( 3 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]

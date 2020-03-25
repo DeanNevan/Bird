@@ -3,6 +3,8 @@ extends RigidBody2D
 signal controlled
 signal cancelled_control
 
+signal got_damage(damage)
+
 signal body_visible(body)
 signal body_invisible(body)
 
@@ -144,7 +146,7 @@ func _process(delta):
 			points_array.pop_front()
 			points_array.append(self.global_position + wake_flame_offset - Vector2(1, 0).rotated($AnimatedSprite.global_rotation) * 90)
 		WakeFlame.points_array = points_array
-		var change_speed = (1 / time_scale) * (40.0 / speed)
+		var change_speed = (1 / time_scale) * (Global.VELOCITY_BASIC_PARA / speed)
 		$AnimatedSprite.speed_scale = time_scale * 3 * sqrt(linear_velocity.length() / max_speed)
 		#rotate_object($AnimatedSprite, rotate_speed * 0.15, target_direction, delta)
 		var velocity_angle = $AnimatedSprite.global_rotation + control_direction.angle()
@@ -160,6 +162,11 @@ func _process(delta):
 		if TweenVelocity.is_active():
 			TweenVelocity.stop_all()
 		pass
+	pass
+
+func get_damage(damage = 1):
+	print("player got damage")
+	emit_signal("got_damage", damage)
 	pass
 
 func rotate_object(object, speed1, target_direction, delta):

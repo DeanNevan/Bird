@@ -118,6 +118,7 @@ func _on_DetectArea_body_entered(body):
 func _on_Player_body_entered(body):
 	if !is_instance_valid(body):
 		return
+	print("strike enemy")
 	var new_ForceCircle = ForceCircle.instance()
 	Global.add_child(new_ForceCircle)
 	var direction = (body.global_position - Player.global_position).normalized()

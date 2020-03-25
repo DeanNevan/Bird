@@ -40,11 +40,14 @@ func _ready():
 	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
 	Sprites.add_new_sprite(Global.COLOR_TYPE.YELLOW)
+	
+	Events._on_active_events_empty()
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	return
 	if delta != 0:
 		var fps = ceil(1 / delta)
 		$GUI/Label.text = "FPS:" + str(fps)

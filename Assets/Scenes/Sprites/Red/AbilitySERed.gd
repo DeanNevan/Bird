@@ -149,9 +149,11 @@ func _on_AttackArea_body_entered(body):
 		return
 	if body.type == Global.TYPE.ENEMY:
 		if body.has_method("get_damage") and !damaged_target.has(body):
+			print("hit enemy")
 			var collision_point = Vector2()
 			var RayDamage = RayCast2D.new()
 			add_child(RayDamage)
+			RayDamage.set_collision_mask_bit(2, true)
 			#RayDamage.global_position = global_position
 			RayDamage.global_rotation = 0
 			RayDamage.cast_to = body.global_position - global_position

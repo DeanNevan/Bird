@@ -3,7 +3,9 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Label.get_font("font").size = 250
+	var a = [1, 2, 3]
+	a.remove(0)
+	print(a)
 	pass
 
 

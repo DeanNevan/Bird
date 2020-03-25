@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Art/Particles/circle_05.png" type="Texture" id=1]
 [ext_resource path="res://Player/Light2D.gd" type="Script" id=2]
@@ -21,6 +21,10 @@
 [ext_resource path="res://Assets/Art/FantasticBird/good_bird12.png" type="Texture" id=30]
 [ext_resource path="res://Assets/Art/FantasticBird/good_bird1.png" type="Texture" id=31]
 
+[sub_resource type="PhysicsMaterial" id=10]
+friction = 0.3
+bounce = 0.25
+
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
@@ -36,6 +40,92 @@ animations = [ {
 "name": "bird",
 "speed": 10.0
 } ]
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Area2D
+
+signal body_visible(body)
+signal body_invisible(body)
+
+var belong_to_player = false
+var user
+
+var is_perspective = false#是否透视
+
+var targets = []#视野范围内的目标
+var visible_targets = []#视野范围内可见的目标
+
+var ViewRay = preload(\"res://Assets/Scenes/ViewArea/ViewRay.tscn\")
+var view_rays = {}#{target:ray}
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func update_CollisionShape(radius, length, width):
+	$CollisionShape2D3.shape.radius = radius
+	$CollisionShape2D.shape.points[1] = Vector2(length, -width)
+	$CollisionShape2D.shape.points[2] = Vector2(length, width)
+	$CollisionShape2D2.shape.points[0] = Vector2(length, -width)
+	$CollisionShape2D2.shape.points[2] = Vector2(length, width)
+	$CollisionShape2D2.shape.points[1] = Vector2(sqrt(length * length + width * width), 0)
+	pass
+
+func update_signal_connection():
+	if user != null and is_instance_valid(user):
+		Global.connect_and_detect(connect(\"body_invisible\", user, \"_on_ViewArea_body_invisible\"))
+		Global.connect_and_detect(connect(\"body_visible\", user, \"_on_ViewArea_body_visible\"))
+	pass
+
+func _on_ViewArea_body_entered(body):
+	if body != user and body.type != Global.TYPE.WALL:
+		if is_perspective:
+			if !targets.has(body):
+				targets.append(body)
+			if !visible_targets.has(body):
+				visible_targets.append(body)
+		else:
+			if !targets.has(body):
+				targets.append(body)
+				var newViewRay = ViewRay.instance()
+				newViewRay.target = body
+				newViewRay.connect(\"target_visible\", self, \"_on_ViewRay_target_visible\")
+				newViewRay.connect(\"target_invisible\", self, \"_on_ViewRay_target_invisible\")
+				newViewRay.user = user
+				Global.add_child(newViewRay)
+				view_rays[body] = newViewRay
+		
+	pass # Replace with function body.
+
+func _on_ViewArea_body_exited(body):
+	targets.erase(body)
+	if visible_targets.has(body):
+		visible_targets.erase(body)
+	if is_instance_valid(body) and view_rays.has(body):
+		if is_instance_valid(view_rays[body]):
+			if view_rays[body].has_method(\"queue_free\"):
+				view_rays[body].queue_free()
+	emit_signal(\"body_invisible\", body)
+	view_rays.erase(body)
+	pass # Replace with function body.
+
+func _on_ViewRay_target_visible(_target):
+	if targets.has(_target) and !visible_targets.has(_target):
+		emit_signal(\"body_visible\", _target)
+		visible_targets.append(_target)
+	pass
+
+func _on_ViewRay_target_invisible(_target):
+	if visible_targets.has(_target):
+		emit_signal(\"body_invisible\", _target)
+		visible_targets.erase(_target)
+	pass
+"
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 44.0
@@ -72,6 +162,8 @@ color_ramp = SubResource( 5 )
 z_index = 1
 collision_mask = 92
 mode = 2
+physics_material_override = SubResource( 10 )
+contacts_reported = 3
 script = ExtResource( 22 )
 
 [node name="ViewAreaProcessCenter" type="Node" parent="."]
@@ -82,13 +174,14 @@ material = SubResource( 1 )
 scale = Vector2( 0.5, 0.45 )
 frames = SubResource( 2 )
 animation = "bird"
-frame = 5
+frame = 10
 playing = true
 offset = Vector2( -50, 30 )
 flip_h = true
 
 [node name="ViewArea" parent="." instance=ExtResource( 21 )]
 collision_mask = 126
+script = SubResource( 9 )
 
 [node name="ViewAreaLight" parent="ViewArea" instance=ExtResource( 3 )]
 

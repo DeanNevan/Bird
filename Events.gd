@@ -2,11 +2,13 @@ extends Node2D
 
 signal updated_events_total_generation_value(total_value)
 
-signal event_started(event)
+signal event_started(event, event_position)
 signal event_ended(event)
 signal active_events_empty
 
-var GAP_TIME = [5, 15]
+var EVENT_ARROW_TIME = 6.5
+
+var GAP_TIME = [1, 2]
 
 enum TYPE{
 	TEST
@@ -22,6 +24,7 @@ var active_events := []
 onready var TimerEventGenerator = Timer.new()
 
 func _init():
+	
 	pass
 
 func _ready():
@@ -60,8 +63,10 @@ func judge_events():
 	if event == null:
 		print("judge events generation failed")
 		return false
-	event.start()
+	var pos = Global.Player.global_position + Vector2(1, 0).rotated(rand_range(0, 2*PI)) * event.event_range
+	event.start(pos)
 	$EventsGUI.display(event)
+	emit_signal("event_started", event, pos)
 	print("judge events generation succeeded", event)
 	pass
 
@@ -89,7 +94,6 @@ func _on_events_changed_generation_rate():
 
 func _on_event_started(_evnet):
 	if !active_events.has(_evnet):
-		emit_signal("event_started", _evnet)
 		active_events.append(_evnet)
 func _on_event_ended(_evnet):
 	if active_events.has(_evnet):

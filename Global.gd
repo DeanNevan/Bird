@@ -10,6 +10,7 @@ enum TYPE{
 }
 
 enum COLOR_TYPE{
+	WHITE
 	PURPLE
 	GREEN
 	ORANGE
@@ -19,6 +20,8 @@ enum COLOR_TYPE{
 }
 
 var Player
+
+var VELOCITY_BASIC_PARA = 35.0
 
 var PLAYER_BASIC_SPEED = 20
 var PLAYER_BASIC_MAX_SPEED = 1700
@@ -30,7 +33,8 @@ var PLAYER_BASIC_VIEW_WIDTH = 1200
 
 var SPRITE_BASIC_VIEW_RADIUS = 230
 
-var COLORS={COLOR_TYPE.PURPLE : Color.purple,
+var COLORS={COLOR_TYPE.WHITE : Color.white,
+			COLOR_TYPE.PURPLE : Color.purple,
 			COLOR_TYPE.GREEN : Color.green,
 			COLOR_TYPE.ORANGE : Color.orange,
 			COLOR_TYPE.RED : Color.red,
